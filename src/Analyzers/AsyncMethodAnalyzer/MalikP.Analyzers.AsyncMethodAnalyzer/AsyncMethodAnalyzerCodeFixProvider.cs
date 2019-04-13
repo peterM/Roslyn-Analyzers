@@ -25,6 +25,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Linq;
@@ -69,24 +70,22 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
         {
             SyntaxNode root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
 
-            Register_RenameCancellationTokenParameter(context, root);
+            Register_RenameCancellationTokenParameter(context, root, RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId);
 
-            Register_AddMissingAsyncSuffix(context, root);
+            Register_AddMissingAsyncSuffix(context, root, RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId);
 
-            Register_AddMissingCancellationTokenParameter(context, root);
+            Register_AddMissingCancellationTokenParameter(context, root, AddMissingCancellationTokenRule.AddMissingCancellationTokenDiagnosticId);
         }
 
-        private void Register_AddMissingCancellationTokenParameter(CodeFixContext context, SyntaxNode root)
+        private void Register_AddMissingCancellationTokenParameter(CodeFixContext context, SyntaxNode root, string diagnosticId)
         {
-            Diagnostic diagnostic = context
-                .Diagnostics
-                .FirstOrDefault(riagnosticItem => riagnosticItem.Id == AddMissingCancellationTokenRule.AddMissingCancellationTokenDiagnosticId);
+            Diagnostic diagnostic = GetDiagnostic(context, diagnosticId);
             if (diagnostic == null)
             {
                 return;
             }
 
-            TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
+            TextSpan diagnosticSpan = GetDiagnosticSpan(diagnostic);
             MethodDeclarationSyntax declaration = root
                 .FindToken(diagnosticSpan.Start)
                 .Parent
@@ -94,19 +93,37 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 .OfType<MethodDeclarationSyntax>()
                 .First();
 
+            Func<CancellationToken, Task<Document>> registrationFunc =
+                cancellationToken => MissingCancellationToken(context.Document, declaration, cancellationToken);
+
+            RegisterCodeFix(context, root, diagnostic, _addMissingCancellationTokenParameterTitle, registrationFunc);
+        }
+
+        private void RegisterCodeFix(CodeFixContext context, SyntaxNode root, Diagnostic diagnostic, string title, Func<CancellationToken, Task<Document>> registrationFunc)
+        {
             context.RegisterCodeFix(
                CodeAction.Create(
-                   title: _addMissingCancellationTokenParameterTitle,
-                   createChangedDocument: cancellationToken => MissingCancellationToken(context.Document, declaration, cancellationToken),
-                   equivalenceKey: _addMissingCancellationTokenParameterTitle),
+                   title: title,
+                   createChangedDocument: registrationFunc,
+                   equivalenceKey: title),
                diagnostic);
         }
 
-        private void Register_RenameCancellationTokenParameter(CodeFixContext context, SyntaxNode root)
+        private static TextSpan GetDiagnosticSpan(Diagnostic diagnostic)
+        {
+            return diagnostic.Location.SourceSpan;
+        }
+
+        private static Diagnostic GetDiagnostic(CodeFixContext context, string diagnosticId)
+        {
+            return context.Diagnostics.FirstOrDefault(riagnosticItem => riagnosticItem.Id == diagnosticId);
+        }
+
+        private void Register_RenameCancellationTokenParameter(CodeFixContext context, SyntaxNode root, string diagnosticId)
         {
             Diagnostic diagnostic = context
                 .Diagnostics
-                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId);
+                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == diagnosticId);
             if (diagnostic == null)
             {
                 return;
@@ -129,18 +146,18 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 diagnostic);
         }
 
-        private void Register_AddMissingAsyncSuffix(CodeFixContext context, SyntaxNode root)
+        private void Register_AddMissingAsyncSuffix(CodeFixContext context, SyntaxNode root, string diagnosticId)
         {
             Diagnostic diagnostic = context
                 .Diagnostics
-                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId);
+                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == diagnosticId);
             if (diagnostic == null)
             {
                 return;
             }
 
             TextSpan diagnosticSpan = diagnostic.Location.SourceSpan;
-            MethodDeclarationSyntax declaration1 = root
+            MethodDeclarationSyntax declaration = root
                 .FindToken(diagnosticSpan.Start)
                 .Parent
                 .AncestorsAndSelf()
@@ -150,7 +167,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             context.RegisterCodeFix(
                CodeAction.Create(
                    title: _addMissingAsyncSuffixTitle,
-                   createChangedSolution: cancellationToken => RenameMethodAddAsyncSuffix(context.Document, declaration1, cancellationToken),
+                   createChangedSolution: cancellationToken => RenameMethodAddAsyncSuffix(context.Document, declaration, cancellationToken),
                    equivalenceKey: _addMissingAsyncSuffixTitle),
                diagnostic);
         }
@@ -182,12 +199,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newName, optionSet, cancellationToken).ConfigureAwait(false);
         }
 
-        private Task<Document> MissingCancellationToken(Document document, MethodDeclarationSyntax declaration1, CancellationToken cancellationToken)
-        {
-            return AddMissingCancellationToken(document, declaration1, cancellationToken);
-        }
-
-        private async Task<Document> AddMissingCancellationToken(Document document, MethodDeclarationSyntax method, CancellationToken cancellationToken)
+        private async Task<Document> MissingCancellationToken(Document document, MethodDeclarationSyntax method, CancellationToken cancellationToken)
         {
             MethodDeclarationSyntax updatedMethod = method.AddParameterListParameters(
                 SyntaxFactory.Parameter(

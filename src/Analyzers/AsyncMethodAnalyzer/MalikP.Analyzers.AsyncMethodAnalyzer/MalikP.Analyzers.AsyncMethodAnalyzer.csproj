@@ -50,4 +50,8 @@
     <None Update="tools\*.ps1" CopyToOutputDirectory="Always" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CodeFixes\" />
+  </ItemGroup>
+
 </Project>

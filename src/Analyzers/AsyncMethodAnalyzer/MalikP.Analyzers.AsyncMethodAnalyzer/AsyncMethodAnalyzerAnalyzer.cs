@@ -28,7 +28,9 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
+
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
