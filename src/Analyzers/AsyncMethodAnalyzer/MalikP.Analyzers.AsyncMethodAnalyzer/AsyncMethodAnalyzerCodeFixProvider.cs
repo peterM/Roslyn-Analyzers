@@ -46,7 +46,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     public class AsyncMethodAnalyzerCodeFixProvider : CodeFixProvider
     {
         private const string _renameCancellationTokenParameterTitle = "Rename to 'cancellationToken'";
-        private const string _addMissingAsyncSuffixTitle = "Add missing '*Async' suffix";
+        private const string _addMissingAsyncSuffixTitle = "Add missing 'Async' suffix";
         private const string _addMissingCancellationTokenParameterTitle = "Add missing 'CancellationToken'";
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds
