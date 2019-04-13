@@ -43,6 +43,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer
 {
+    // TODO: Refactor to separate codefix providers and use some base class with repetitive logic
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AsyncMethodAnalyzerCodeFixProvider)), Shared]
     public class AsyncMethodAnalyzerCodeFixProvider : CodeFixProvider
     {
