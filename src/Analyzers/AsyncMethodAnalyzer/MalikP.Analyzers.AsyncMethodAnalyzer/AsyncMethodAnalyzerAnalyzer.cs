@@ -28,7 +28,7 @@
 using System;
 using System.Collections.Immutable;
 using System.Linq;
-
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -37,55 +37,14 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class AsyncMethodAnalyzerAnalyzer : DiagnosticAnalyzer
     {
-        private const string Category = "Naming";
-
-        public const string RenameCancellationTokenParameterDiagnosticId = "AsyncAnalyzer_RenameCancellationToken";
-        private static readonly LocalizableString RenameCancellationTokenParameter_Title = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameCancellationTokenParameter_MessageFormat = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameCancellationTokenParameter_Description = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Description), Resources.ResourceManager, typeof(Resources));
-        private static DiagnosticDescriptor RenameCancellationTokenParameterRule = new DiagnosticDescriptor(
-            RenameCancellationTokenParameterDiagnosticId,
-            RenameCancellationTokenParameter_Title,
-            RenameCancellationTokenParameter_MessageFormat,
-            Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: RenameCancellationTokenParameter_Description);
-
-        public const string RenameMethodMissingAsyncSuffixDiagnosticId = "AsyncAnalyzer_AddMissingAsyncSuffix";
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_Title = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_MessageFormat = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_Description = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Description), Resources.ResourceManager, typeof(Resources));
-        private static DiagnosticDescriptor RenameMethodMissingAsyncSuffixRule = new DiagnosticDescriptor(
-            RenameMethodMissingAsyncSuffixDiagnosticId,
-            RenameMethodMissingAsyncSuffix_Title,
-            RenameMethodMissingAsyncSuffix_MessageFormat,
-            Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: RenameMethodMissingAsyncSuffix_Description);
-
-        public const string AddMissingCancellationTokenDiagnosticId = "AsyncAnalyzer_AddMissingCancellationToken";
-        private static readonly LocalizableString AddMissingCancellationToken_Title = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString AddMissingCancellationToken_MessageFormat = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString AddMissingCancellationToken_Description = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Description), Resources.ResourceManager, typeof(Resources));
-        private static DiagnosticDescriptor AddMissingCancellationTokenRule = new DiagnosticDescriptor(
-            AddMissingCancellationTokenDiagnosticId,
-            AddMissingCancellationToken_Title,
-            AddMissingCancellationToken_MessageFormat,
-            Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: AddMissingCancellationToken_Description);
-
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
             get
             {
                 return ImmutableArray.Create(
-                    RenameCancellationTokenParameterRule,
-                    RenameMethodMissingAsyncSuffixRule,
-                    AddMissingCancellationTokenRule);
+                    RenameCancellationTokenParameterRule.Rule,
+                    RenameMethodMissingAsyncSuffixRule.Rule,
+                    AddMissingCancellationTokenRule.Rule);
             }
         }
 
@@ -125,7 +84,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                         {
                             // Method does not have Async Suffix
 
-                            Diagnostic diagnostic = Diagnostic.Create(RenameMethodMissingAsyncSuffixRule, methodSymbol.Locations[0], namedTypeSymbol.Name);
+                            Diagnostic diagnostic = Diagnostic.Create(RenameMethodMissingAsyncSuffixRule.Rule, methodSymbol.Locations[0], namedTypeSymbol.Name);
                             context.ReportDiagnostic(diagnostic);
                         }
 
@@ -136,7 +95,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                         {
                             // Method do not contain Cancellation token
 
-                            Diagnostic diagnostic = Diagnostic.Create(AddMissingCancellationTokenRule, methodSymbol.Locations[0], namedTypeSymbol.Name);
+                            Diagnostic diagnostic = Diagnostic.Create(AddMissingCancellationTokenRule.Rule, methodSymbol.Locations[0], namedTypeSymbol.Name);
                             context.ReportDiagnostic(diagnostic);
                         }
                         else if (cancellationTokenParameter != null
@@ -144,7 +103,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                         {
                             // cancellation token has incorrect name
 
-                            Diagnostic diagnostic = Diagnostic.Create(RenameCancellationTokenParameterRule, cancellationTokenParameter.Locations[0], namedTypeSymbol.Name);
+                            Diagnostic diagnostic = Diagnostic.Create(RenameCancellationTokenParameterRule.Rule, cancellationTokenParameter.Locations[0], namedTypeSymbol.Name);
                             context.ReportDiagnostic(diagnostic);
                         }
                     }

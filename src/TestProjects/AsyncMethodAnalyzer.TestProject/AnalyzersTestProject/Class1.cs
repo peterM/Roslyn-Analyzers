@@ -6,6 +6,7 @@ namespace AnalyzersTestProject
     public interface IInterface
     {
         Task MyMethodAsync(string s, System.Threading.CancellationToken cancellationToken);
+        Task MyM();
     }
 
     public class Class1 : IInterface

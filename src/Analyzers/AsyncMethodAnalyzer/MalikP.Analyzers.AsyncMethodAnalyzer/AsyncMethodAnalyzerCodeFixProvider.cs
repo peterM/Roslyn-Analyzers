@@ -30,7 +30,7 @@ using System.Composition;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -54,9 +54,9 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             get
             {
                 return ImmutableArray.Create(
-                    AsyncMethodAnalyzerAnalyzer.RenameCancellationTokenParameterDiagnosticId,
-                    AsyncMethodAnalyzerAnalyzer.RenameMethodMissingAsyncSuffixDiagnosticId,
-                    AsyncMethodAnalyzerAnalyzer.AddMissingCancellationTokenDiagnosticId);
+                    RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId,
+                    RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId,
+                    AddMissingCancellationTokenRule.AddMissingCancellationTokenDiagnosticId);
             }
         }
 
@@ -80,7 +80,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
         {
             Diagnostic diagnostic = context
                 .Diagnostics
-                .FirstOrDefault(riagnosticItem => riagnosticItem.Id == AsyncMethodAnalyzerAnalyzer.AddMissingCancellationTokenDiagnosticId);
+                .FirstOrDefault(riagnosticItem => riagnosticItem.Id == AddMissingCancellationTokenRule.AddMissingCancellationTokenDiagnosticId);
             if (diagnostic == null)
             {
                 return;
@@ -106,7 +106,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
         {
             Diagnostic diagnostic = context
                 .Diagnostics
-                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == AsyncMethodAnalyzerAnalyzer.RenameCancellationTokenParameterDiagnosticId);
+                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId);
             if (diagnostic == null)
             {
                 return;
@@ -133,7 +133,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
         {
             Diagnostic diagnostic = context
                 .Diagnostics
-                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == AsyncMethodAnalyzerAnalyzer.RenameMethodMissingAsyncSuffixDiagnosticId);
+                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId);
             if (diagnostic == null)
             {
                 return;
