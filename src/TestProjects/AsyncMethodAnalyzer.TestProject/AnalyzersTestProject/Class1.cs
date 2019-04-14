@@ -5,8 +5,7 @@ namespace AnalyzersTestProject
 {
     public interface IInterface
     {
-        Task MyMethodAsync(string s, System.Threading.CancellationToken cancellationToken);
-        Task MyM();
+        Task MyMethod(string s);
     }
 
     public class Class1 : IInterface
@@ -15,9 +14,20 @@ namespace AnalyzersTestProject
         {
         }
 
-        public Task MyMethodAsync(string a, System.Threading.CancellationToken cancellationToken)
+        public Task MyMethod(string a)
         {
             return Task.CompletedTask;
+        }
+
+
+        public Task<bool> MA()
+        {
+            return Task.FromResult(true);
+        }
+
+        public async void MAX()
+        {
+            await Task.Delay(20);
         }
     }
 }
