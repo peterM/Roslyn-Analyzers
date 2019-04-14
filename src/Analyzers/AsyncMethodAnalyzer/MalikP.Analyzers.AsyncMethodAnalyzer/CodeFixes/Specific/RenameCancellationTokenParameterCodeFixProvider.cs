@@ -46,6 +46,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
     public class RenameCancellationTokenParameterCodeFixProvider : AbstractSolutionCodefixProvider<ParameterSyntax>
     {
         private const string _newParameterName = "cancellationToken";
+        private const string _cancellationTokenTypeName = "System.Threading.CancellationToken";
 
         protected override string Title => "Rename to 'cancellationToken'";
 
@@ -55,18 +56,20 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, ParameterSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
-            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken)
+                .ConfigureAwait(false);
             IParameterSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
 
             Solution originalSolution = document.Project.Solution;
             OptionSet optionSet = originalSolution.Workspace.Options;
 
-            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, _newParameterName, optionSet, cancellationToken).ConfigureAwait(false);
+            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, _newParameterName, optionSet, cancellationToken).
+                ConfigureAwait(false);
         }
 
         protected override ParameterSyntax GetSpecificSyntax(IEnumerable<ParameterSyntax> syntaxes)
         {
-            return syntaxes.First(parameterSyntaxItem => parameterSyntaxItem.Type.ToString() == "System.Threading.CancellationToken");
+            return syntaxes.First(parameterSyntaxItem => parameterSyntaxItem.Type.ToString() == _cancellationTokenTypeName);
         }
     }
 }
