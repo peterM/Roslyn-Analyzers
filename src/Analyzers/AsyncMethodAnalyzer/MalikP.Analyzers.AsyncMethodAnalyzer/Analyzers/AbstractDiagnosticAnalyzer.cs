@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenNameAnalyzer.cs 
+// File: AbstractDiagnosticAnalyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,33 +25,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using System.Collections.Immutable;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenNameAnalyzer : AbstractDiagnosticAnalyzer
+    public abstract class AbstractDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameCancellationTokenParameterRule.Rule;
+        protected const string _expectedParameterName = "cancellationToken";
+        protected const string _cancellationTokenType = "System.Threading.CancellationToken";
+        protected const string _taskType = "System.Threading.Tasks.Task";
+        protected const string _asyncSuffix = "Async";
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Parameter };
-
-        protected override void AnalyzeSymbol(SymbolAnalysisContext context)
+        protected AbstractDiagnosticAnalyzer()
         {
-            IParameterSymbol cancellationTokenParameter = (IParameterSymbol)context.Symbol;
-            INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
+        }
 
-            if (cancellationTokenParameter != null
-                && Equals(cancellationToken, cancellationTokenParameter.Type)
-                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName, StringComparison.InvariantCulture))
-            {
-                ReportDiagnosticResult(context, cancellationTokenParameter);
-            }
+        protected abstract SymbolKind[] SymbolKinds { get; }
+
+        protected abstract DiagnosticDescriptor DiagnosticDescriptor { get; }
+
+        protected abstract void AnalyzeSymbol(SymbolAnalysisContext context);
+
+        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptor);
+
+        public override void Initialize(AnalysisContext context) => context.RegisterSymbolAction(AnalyzeSymbol, SymbolKinds);
+
+        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
+        {
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name);
+            context.ReportDiagnostic(diagnostic);
         }
     }
 }

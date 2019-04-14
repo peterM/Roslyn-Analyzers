@@ -46,5 +46,14 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             DiagnosticSeverity.Error,
             isEnabledByDefault: true,
             description: AddMissingCancellationToken_Description);
+
+        public static readonly DiagnosticDescriptor WarningRule = new DiagnosticDescriptor(
+            AddMissingCancellationTokenDiagnosticId,
+            AddMissingCancellationToken_Title,
+            AddMissingCancellationToken_MessageFormat,
+            Category,
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault: true,
+            description: AddMissingCancellationToken_Description);
     }
 }

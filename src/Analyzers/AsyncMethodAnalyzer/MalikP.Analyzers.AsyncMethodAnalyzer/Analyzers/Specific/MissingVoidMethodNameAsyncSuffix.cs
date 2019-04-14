@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenNameAnalyzer.cs 
+// File: MissingVoidMethodNameAsyncSuffix.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,30 +27,43 @@
 
 using System;
 
+using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
+namespace MalikP.Analyzers.AsyncMethodAnalyzer
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenNameAnalyzer : AbstractDiagnosticAnalyzer
+    public class MissingVoidMethodNameAsyncSuffix : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameCancellationTokenParameterRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameMethodMissingAsyncSuffixRule.WarningRule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Parameter };
+        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IParameterSymbol cancellationTokenParameter = (IParameterSymbol)context.Symbol;
-            INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
-
-            if (cancellationTokenParameter != null
-                && Equals(cancellationToken, cancellationTokenParameter.Type)
-                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName, StringComparison.InvariantCulture))
+            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
+            if (methodSymbol == null)
             {
-                ReportDiagnosticResult(context, cancellationTokenParameter);
+                return;
+            }
+
+            if (methodSymbol.MethodKind == MethodKind.PropertyGet
+                || methodSymbol.MethodKind == MethodKind.Constructor)
+            {
+                return;
+            }
+
+            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
+            if (methodSymbol.IsAsync
+                && Equals(methodSymbol.ReturnType, voidType))
+            {
+                if (!methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
+                {
+                    ReportDiagnosticResult(context, methodSymbol);
+                }
             }
         }
     }

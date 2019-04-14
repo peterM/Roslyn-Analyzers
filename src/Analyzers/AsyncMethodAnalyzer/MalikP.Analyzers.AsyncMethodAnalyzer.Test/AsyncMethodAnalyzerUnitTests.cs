@@ -26,7 +26,8 @@
 // SOFTWARE.
 
 using System;
-
+using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific;
+using MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -98,12 +99,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Test
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new AsyncMethodAnalyzerCodeFixProvider();
+            return new AddMissingAsyncSuffixCodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new AsyncMethodAnalyzerAnalyzer();
+            return new CancellationTokenNameAnalyzer();
         }
     }
 }
