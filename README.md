@@ -1,6 +1,4 @@
-# Roslyn-Analyzers
-Roslyn Analyzers
-
+# Roslyn Analyzers
 
 ### Analyzers
 
