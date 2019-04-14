@@ -6,6 +6,7 @@
         <Description xml:space="preserve">This is a diagnostic extension for the .NET Compiler Platform ("Roslyn") to analyze asynchronous methods. </Description>
         <MoreInfo>https://github.com/peterM/Roslyn-Analyzers</MoreInfo>
         <License>LICENSE.txt</License>
+        <Icon>roslyn.png</Icon>
         <Tags>roslyn, analyzers</Tags>
         <Preview>true</Preview>
     </Metadata>
