@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Immutable;
-using System.Linq;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 
@@ -87,25 +86,6 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                             // Method does not have Async Suffix
 
                             Diagnostic diagnostic = Diagnostic.Create(RenameMethodMissingAsyncSuffixRule.Rule, methodSymbol.Locations[0], namedTypeSymbol.Name);
-                            context.ReportDiagnostic(diagnostic);
-                        }
-
-                        INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName("System.Threading.CancellationToken");
-                        IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
-
-                        if (cancellationTokenParameter == null)
-                        {
-                            // Method do not contain Cancellation token
-
-                            Diagnostic diagnostic = Diagnostic.Create(AddMissingCancellationTokenRule.Rule, methodSymbol.Locations[0], namedTypeSymbol.Name);
-                            context.ReportDiagnostic(diagnostic);
-                        }
-                        else if (cancellationTokenParameter != null
-                            && !string.Equals(cancellationTokenParameter.Name, "cancellationToken", StringComparison.InvariantCulture))
-                        {
-                            // cancellation token has incorrect name
-
-                            Diagnostic diagnostic = Diagnostic.Create(RenameCancellationTokenParameterRule.Rule, cancellationTokenParameter.Locations[0], namedTypeSymbol.Name);
                             context.ReportDiagnostic(diagnostic);
                         }
                     }
