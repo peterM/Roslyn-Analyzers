@@ -12,7 +12,7 @@
     <Authors>Peter Malik</Authors>
     <PackageLicenseUrl>https://raw.githubusercontent.com/peterM/Roslyn-Analyzers/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peterM/Roslyn-Analyzers</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>https://github.com/peterM/Roslyn-Analyzers/blob/master/src/Analyzers/AsyncMethodAnalyzer/MalikP.Analyzers.AsyncMethodAnalyzer.Vsix/roslyn.png?raw=true</PackageIconUrl>
     <RepositoryUrl>https://github.com/peterM/Roslyn-Analyzers</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>Roslyn based analyzer to analyze asynchronous method name and parameters.</Description>
