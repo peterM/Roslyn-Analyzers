@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenNameAnalyzer.cs 
+// File: CancellationTokenOrderAnalyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,6 +25,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections.Generic;
+using System.Linq;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 
 using Microsoft.CodeAnalysis;
@@ -33,22 +35,38 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenNameAnalyzer : AbstractDiagnosticAnalyzer
+    public class CancellationTokenOrderAnalyzer : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameCancellationTokenParameterRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => ReorderCancellationTokenMethodParameterRule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Parameter };
+        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IParameterSymbol cancellationTokenParameter = (IParameterSymbol)context.Symbol;
-            INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
+            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
 
-            if (cancellationTokenParameter != null
-                && Equals(cancellationToken, cancellationTokenParameter.Type)
-                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName))
+            List<IParameterSymbol> parameters = methodSymbol.Parameters.ToList();
+            if (parameters.Count <= 1)
             {
-                ReportDiagnosticResult(context, cancellationTokenParameter);
+                return;
+            }
+
+            INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
+            IParameterSymbol cancellationTokenParameter = parameters.SingleOrDefault(parameterSymbol => Equals(parameterSymbol.Type, cancellationToken));
+            if (cancellationTokenParameter == null)
+            {
+                return;
+            }
+
+            int index = parameters.IndexOf(cancellationTokenParameter);
+            if (index == -1)
+            {
+                return;
+            }
+
+            if (index != parameters.Count - 1)
+            {
+                ReportDiagnosticResult(context, methodSymbol);
             }
         }
     }

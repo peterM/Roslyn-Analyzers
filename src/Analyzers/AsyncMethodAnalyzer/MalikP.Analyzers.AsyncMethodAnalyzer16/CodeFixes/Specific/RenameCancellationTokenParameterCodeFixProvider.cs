@@ -43,14 +43,12 @@ using Microsoft.CodeAnalysis.Rename;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RenameCancellationTokenParameterCodeFixProvider)), Shared]
-    public class RenameCancellationTokenParameterCodeFixProvider : AbstractSolutionCodefixProvider<ParameterSyntax>
+    public sealed class RenameCancellationTokenParameterCodeFixProvider : AbstractSolutionCodefixProvider<ParameterSyntax>
     {
         private const string _newParameterName = "cancellationToken";
         private const string _cancellationTokenTypeName = "System.Threading.CancellationToken";
 
         protected override string Title => "Rename to 'cancellationToken'";
-
-        protected override string EquivalenceKey => Title;
 
         protected override string DiagnosticId => RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId;
 

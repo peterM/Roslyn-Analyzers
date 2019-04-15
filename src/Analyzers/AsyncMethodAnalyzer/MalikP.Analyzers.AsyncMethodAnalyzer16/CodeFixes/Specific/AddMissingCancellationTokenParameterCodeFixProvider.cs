@@ -41,7 +41,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingCancellationTokenParameterCodeFixProvider)), Shared]
     public sealed class AddMissingCancellationTokenParameterCodeFixProvider : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
     {
-        protected override string EquivalenceKey => Title;
+        private const string _identifierName = "cancellationToken";
 
         protected override string Title => "Add missing 'CancellationToken'";
 
@@ -51,7 +51,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         {
             MethodDeclarationSyntax updatedMethod = syntaxDeclaration.AddParameterListParameters(
                SyntaxFactory.Parameter(
-                   SyntaxFactory.Identifier("cancellationToken"))
+                   SyntaxFactory.Identifier(_identifierName))
                                 .WithType(SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName)));
 
             SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken);

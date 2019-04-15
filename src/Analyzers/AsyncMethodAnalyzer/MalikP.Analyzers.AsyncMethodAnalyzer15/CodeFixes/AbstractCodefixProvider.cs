@@ -45,9 +45,9 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
         {
         }
 
-        protected abstract string EquivalenceKey { get; }
-
         protected abstract string Title { get; }
+
+        protected virtual string EquivalenceKey => Title;
 
         protected abstract string DiagnosticId { get; }
 

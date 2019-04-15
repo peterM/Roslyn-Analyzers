@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AddMissingCancellationTokenRule.cs 
+// File: ReorderCancellationTokenMethodParameterRule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -29,31 +29,21 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
 {
-    internal static class AddMissingCancellationTokenRule
+    internal static class ReorderCancellationTokenMethodParameterRule
     {
         private const string Category = "Design";
+        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_Title = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_MessageFormat = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_Description = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Description), Resources.ResourceManager, typeof(Resources));
 
-        private static readonly LocalizableString AddMissingCancellationToken_Title = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString AddMissingCancellationToken_MessageFormat = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString AddMissingCancellationToken_Description = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Description), Resources.ResourceManager, typeof(Resources));
-
-        public const string AddMissingCancellationTokenDiagnosticId = "AsyncAnalyzer_AddMissingCancellationToken";
+        public const string ReorderCancellationTokenMethodParameterDiagnosticId = "AsyncAnalyzer_ReorderCancellationTokenMethodParameter";
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            AddMissingCancellationTokenDiagnosticId,
-            AddMissingCancellationToken_Title,
-            AddMissingCancellationToken_MessageFormat,
-            Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: AddMissingCancellationToken_Description);
-
-        public static readonly DiagnosticDescriptor WarningRule = new DiagnosticDescriptor(
-            AddMissingCancellationTokenDiagnosticId,
-            AddMissingCancellationToken_Title,
-            AddMissingCancellationToken_MessageFormat,
+            ReorderCancellationTokenMethodParameterDiagnosticId,
+            ReorderCancellationTokenMethodParameterRule_Title,
+            ReorderCancellationTokenMethodParameterRule_MessageFormat,
             Category,
             DiagnosticSeverity.Warning,
             isEnabledByDefault: true,
-            description: AddMissingCancellationToken_Description);
+            description: ReorderCancellationTokenMethodParameterRule_Description);
     }
 }

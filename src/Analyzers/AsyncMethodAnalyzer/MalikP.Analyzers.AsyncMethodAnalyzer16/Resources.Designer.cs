@@ -194,5 +194,32 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
                 return ResourceManager.GetString("RenameMethodMissingAsyncSuffix_Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reorder methods parameter and put &apos;CancellationToken&apos; as last parameter..
+        /// </summary>
+        internal static string ReorderCancellationTokenMethodParameter_Description {
+            get {
+                return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method {0} parameter &apos;CancellationToken&apos; is not last parameter..
+        /// </summary>
+        internal static string ReorderCancellationTokenMethodParameter_MessageFormat {
+            get {
+                return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_MessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put &apos;CancellationToken&apos; as last parameter.
+        /// </summary>
+        internal static string ReorderCancellationTokenMethodParameter_Title {
+            get {
+                return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_Title", resourceCulture);
+            }
+        }
     }
 }

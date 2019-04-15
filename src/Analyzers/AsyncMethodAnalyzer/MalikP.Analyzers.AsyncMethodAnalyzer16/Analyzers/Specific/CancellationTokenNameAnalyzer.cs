@@ -26,7 +26,7 @@
 // SOFTWARE.
 
 using System;
-
+using System.Collections.Generic;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
 
 using Microsoft.CodeAnalysis;

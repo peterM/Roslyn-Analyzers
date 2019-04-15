@@ -43,8 +43,6 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffixCodeFixProvider)), Shared]
     public sealed class AddMissingAsyncSuffixCodeFixProvider : AbstractSolutionCodefixProvider<MethodDeclarationSyntax>
     {
-        protected override string EquivalenceKey => Title;
-
         protected override string Title => "Add missing 'Async' suffix";
 
         protected override string DiagnosticId => RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId;
