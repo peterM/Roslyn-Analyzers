@@ -36,7 +36,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
         private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_MessageFormat = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
         private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_Description = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Description), Resources.ResourceManager, typeof(Resources));
 
-        public const string ReorderCancellationTokenMethodParameterDiagnosticId = "AsyncAnalyzer_ReorderCancellationTokenMethodParameter";
+        public const string ReorderCancellationTokenMethodParameterDiagnosticId = "MP-AA-D-001";
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             ReorderCancellationTokenMethodParameterDiagnosticId,
             ReorderCancellationTokenMethodParameterRule_Title,

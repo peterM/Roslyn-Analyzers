@@ -37,7 +37,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
         private static readonly LocalizableString AddMissingCancellationToken_MessageFormat = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_MessageFormat), Resources.ResourceManager, typeof(Resources));
         private static readonly LocalizableString AddMissingCancellationToken_Description = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Description), Resources.ResourceManager, typeof(Resources));
 
-        public const string AddMissingCancellationTokenDiagnosticId = "AsyncAnalyzer_AddMissingCancellationToken";
+        public const string AddMissingCancellationTokenDiagnosticId = "MP-AA-D-002";
+
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             AddMissingCancellationTokenDiagnosticId,
             AddMissingCancellationToken_Title,
