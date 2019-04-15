@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AnalyzersTestProject
@@ -20,7 +21,7 @@ namespace AnalyzersTestProject
         }
 
 
-        public Task<bool> MA()
+        public Task<bool> MA(CancellationToken cancellationToken, int a)
         {
             return Task.FromResult(true);
         }
