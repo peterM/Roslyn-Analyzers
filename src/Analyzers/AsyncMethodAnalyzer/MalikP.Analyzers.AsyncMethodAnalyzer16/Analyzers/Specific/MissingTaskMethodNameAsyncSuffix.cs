@@ -56,12 +56,13 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 return;
             }
 
-            INamedTypeSymbol returnTypeSymbol = methodSymbol.ReturnType as INamedTypeSymbol;
+            INamedTypeSymbol returnTypeSymbol = methodSymbol?.ReturnType as INamedTypeSymbol;
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
 
 #if (NETSTANDARD1_6)
             if (!Equals(returnTypeSymbol, voidType)
+                && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
                     || returnTypeSymbol.ToString().StartsWith(_taskType))
@@ -71,6 +72,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             }
 #else
             if (!Equals(returnTypeSymbol, voidType)
+                && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
                     || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture))

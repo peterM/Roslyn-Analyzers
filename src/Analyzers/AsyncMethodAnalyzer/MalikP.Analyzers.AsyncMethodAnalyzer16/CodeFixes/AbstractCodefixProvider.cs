@@ -70,7 +70,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
         {
             SyntaxNode root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
 
-            RegisterCodeFix(context, root, DiagnosticId);
+            await RegisterCodeFixAsync(context, root, DiagnosticId);
         }
 
         private TextSpan GetDiagnosticSpan(Diagnostic diagnostic)
@@ -87,8 +87,11 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
                 .OfType<TSyntax>();
         }
 
-        private void RegisterCodeFix(CodeFixContext context, SyntaxNode root, string diagnosticId)
+        private async Task RegisterCodeFixAsync(CodeFixContext context, SyntaxNode root, string diagnosticId)
         {
+            SemanticModel semanticModel = await context.Document.GetSemanticModelAsync()
+                .ConfigureAwait(false);
+
             Diagnostic diagnostic = GetDiagnostic(context, diagnosticId);
             if (diagnostic == null)
             {
@@ -97,7 +100,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
 
             TextSpan diagnosticSpan = GetDiagnosticSpan(diagnostic);
             IEnumerable<TSpecificSyntax> syntaxes = GetSyntaxes<TSpecificSyntax>(root, diagnosticSpan);
-            TSpecificSyntax specificSyntax = GetSpecificSyntax(syntaxes);
+            TSpecificSyntax specificSyntax = GetSpecificSyntax(semanticModel, syntaxes);
+
+            if (specificSyntax == null)
+            {
+                return;
+            }
 
             RegisterDocumentCodeFix(context, diagnostic, specificSyntax);
             RegisterSolutionCodeFix(context, diagnostic, specificSyntax);
@@ -110,9 +118,9 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
                 .FirstOrDefault(diagnosticItem => diagnosticItem.Id == diagnosticId);
         }
 
-        protected virtual TSpecificSyntax GetSpecificSyntax(IEnumerable<TSpecificSyntax> syntaxes)
+        protected virtual TSpecificSyntax GetSpecificSyntax(SemanticModel semanticModel, IEnumerable<TSpecificSyntax> syntaxes)
         {
-            return syntaxes.First();
+            return syntaxes.FirstOrDefault();
         }
     }
 }

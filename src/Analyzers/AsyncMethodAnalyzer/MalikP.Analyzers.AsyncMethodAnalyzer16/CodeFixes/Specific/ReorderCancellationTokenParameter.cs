@@ -53,7 +53,11 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         {
             List<ParameterSyntax> parameters = syntaxDeclaration.ParameterList.Parameters.Where(parameterSyntax => !CompareParameter(parameterSyntax)).ToList();
 
-            ParameterSyntax originalCancellationToken = syntaxDeclaration.ParameterList.Parameters.First(parameterSyntax => CompareParameter(parameterSyntax));
+            ParameterSyntax originalCancellationToken = syntaxDeclaration.ParameterList.Parameters.FirstOrDefault(CompareParameter);
+            if (originalCancellationToken == null)
+            {
+                return Task.FromResult(document);
+            }
 
             ParameterListSyntax updatedParameterList = SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(parameters.Concat(new[] { originalCancellationToken })));
 

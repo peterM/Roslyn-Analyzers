@@ -29,5 +29,10 @@ namespace AnalyzersTestProject
         {
             await Task.Delay(20);
         }
+
+        public void MXX(CancellationToken ca, int a)
+        {
+
+        }
     }
 }

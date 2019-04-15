@@ -43,6 +43,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffixCodeFixProvider)), Shared]
     public sealed class AddMissingAsyncSuffixCodeFixProvider : AbstractSolutionCodefixProvider<MethodDeclarationSyntax>
     {
+        private const string _suffix = "Async";
+
         protected override string Title => "Add missing 'Async' suffix";
 
         protected override string DiagnosticId => RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId;
@@ -50,15 +52,18 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
             SyntaxToken identifierToken = syntaxDeclaration.Identifier;
-            string newName = string.Concat(identifierToken.Text, "Async");
+            string newMethodName = string.Concat(identifierToken.Text, _suffix);
 
-            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken);
+            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken)
+                .ConfigureAwait(false);
+
             IMethodSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
 
             Solution originalSolution = document.Project.Solution;
             OptionSet optionSet = originalSolution.Workspace.Options;
 
-            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newName, optionSet, cancellationToken).ConfigureAwait(false);
+            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newMethodName, optionSet, cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

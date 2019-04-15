@@ -54,7 +54,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
                    SyntaxFactory.Identifier(_identifierName))
                                 .WithType(SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName)));
 
-            SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken);
+            SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken)
+                .ConfigureAwait(false);
 
             SyntaxNode updatedSyntaxTree = syntaxTree.GetRoot().ReplaceNode(syntaxDeclaration, updatedMethod);
 

@@ -59,7 +59,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
 #if (NETSTANDARD1_6)
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
-                && Equals(methodSymbol.ReturnType, voidType)
+                && Equals(methodSymbol?.ReturnType, voidType)
                 && !methodSymbol.Name.EndsWith(_asyncSuffix))
             {
                 ReportDiagnosticResult(context, methodSymbol);
@@ -67,7 +67,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
 #else
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
-                && Equals(methodSymbol.ReturnType, voidType)
+                && Equals(methodSymbol?.ReturnType, voidType)
                 && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
             {
                 ReportDiagnosticResult(context, methodSymbol);

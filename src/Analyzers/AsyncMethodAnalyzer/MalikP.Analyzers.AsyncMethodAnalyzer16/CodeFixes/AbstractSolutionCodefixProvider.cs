@@ -64,7 +64,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected sealed override Task<Document> ChangedDocumentHandlerAsync(Document document, TSpecificSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

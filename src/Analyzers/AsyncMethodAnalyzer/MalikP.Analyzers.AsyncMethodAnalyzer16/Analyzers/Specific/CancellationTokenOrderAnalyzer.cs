@@ -44,6 +44,10 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
             IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
+            if (methodSymbol.ReturnType == null)
+            {
+                return;
+            }
 
             List<IParameterSymbol> parameters = methodSymbol.Parameters.ToList();
             if (parameters.Count <= 1)

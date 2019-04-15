@@ -58,7 +58,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
 
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
-                && Equals(methodSymbol.ReturnType, voidType))
+                && Equals(methodSymbol?.ReturnType, voidType))
             {
                 INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
                 IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);

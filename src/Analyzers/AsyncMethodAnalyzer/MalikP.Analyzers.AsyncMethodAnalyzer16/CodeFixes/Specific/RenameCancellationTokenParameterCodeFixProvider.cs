@@ -56,18 +56,28 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken)
                 .ConfigureAwait(false);
+
             IParameterSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
 
             Solution originalSolution = document.Project.Solution;
             OptionSet optionSet = originalSolution.Workspace.Options;
 
-            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, _newParameterName, optionSet, cancellationToken).
-                ConfigureAwait(false);
+            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, _newParameterName, optionSet, cancellationToken)
+                .ConfigureAwait(false);
         }
 
-        protected override ParameterSyntax GetSpecificSyntax(IEnumerable<ParameterSyntax> syntaxes)
+        protected override ParameterSyntax GetSpecificSyntax(SemanticModel semanticModel, IEnumerable<ParameterSyntax> syntaxes)
         {
-            return syntaxes.First(parameterSyntaxItem => parameterSyntaxItem.Type.ToString() == _cancellationTokenTypeName);
+            return syntaxes.FirstOrDefault(parameterSyntaxItem => Match(semanticModel, parameterSyntaxItem));
+        }
+
+        public bool Match(SemanticModel semanticModel, ParameterSyntax parameterSyntax)
+        {
+            IParameterSymbol declaredParameterSymbol = semanticModel.GetDeclaredSymbol(parameterSyntax);
+
+            return declaredParameterSymbol == null
+                ? false
+                : declaredParameterSymbol.Type.ToString() == _cancellationTokenTypeName;
         }
     }
 }
