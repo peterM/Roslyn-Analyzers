@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer.Test</AssemblyName>
+    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer16.Test</AssemblyName>
     <RootNamespace>MalikP.Analyzers.AsyncMethodAnalyzer.Test</RootNamespace>
   </PropertyGroup>
 
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MalikP.Analyzers.AsyncMethodAnalyzer\MalikP.Analyzers.AsyncMethodAnalyzer.csproj" />
+    <ProjectReference Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\MalikP.Analyzers.AsyncMethodAnalyzer16.csproj" />
   </ItemGroup>
 
 </Project>

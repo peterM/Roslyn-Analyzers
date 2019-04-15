@@ -2,9 +2,14 @@
 <!-- Copyright (c)  Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information. -->
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>14.0</OldToolsVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -13,12 +18,12 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{3DB6979F-41DA-414B-8F47-6F8E6584C067}</ProjectGuid>
+    <ProjectGuid>{68D87D65-C630-4772-A066-6862587697E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MalikP.Analyzers.AsyncMethodAnalyzer.Vsix</RootNamespace>
-    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer.Vsix</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer_VS2017</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
@@ -55,14 +60,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MalikP.Analyzers.AsyncMethodAnalyzer\MalikP.Analyzers.AsyncMethodAnalyzer.csproj">
-      <Project>{8F723B1A-4323-4860-BE22-0DFF51BCF134}</Project>
-      <Name>MalikP.Analyzers.AsyncMethodAnalyzer</Name>
-      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -74,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MalikP.Analyzers.AsyncMethodAnalyzer15\MalikP.Analyzers.AsyncMethodAnalyzer15.csproj">
+      <Project>{57d8e036-f289-4b04-bb7a-1ea09efc0475}</Project>
+      <Name>MalikP.Analyzers.AsyncMethodAnalyzer15</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -22,7 +22,7 @@
     <Copyright>Copyright ©2019 MalikP. All Rights Reserved</Copyright>
     <PackageTags>Async, analyzers</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer</AssemblyName>
+    <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer16</AssemblyName>
     <Version>0.0.3</Version>
     <Company>MalikP.</Company>
     <Product>Asynchronous Method Analyzer (VS2019)</Product>
