@@ -4,6 +4,8 @@
 
 #### Asynchronous analyzer
 
+![](res/roslyn.png)
+
 Support diagnostics: 
 - Analyze if method has `Async` suffix
 - Analyze if method has `CancellationToken` parameter
