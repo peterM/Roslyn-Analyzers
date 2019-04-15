@@ -56,15 +56,23 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 return;
             }
 
+#if (NETSTANDARD1_6)
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
-                && Equals(methodSymbol.ReturnType, voidType))
+                && Equals(methodSymbol.ReturnType, voidType)
+                && !methodSymbol.Name.EndsWith(_asyncSuffix))
             {
-                if (!methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
-                {
-                    ReportDiagnosticResult(context, methodSymbol);
-                }
+                ReportDiagnosticResult(context, methodSymbol);
             }
+#else
+            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
+            if (methodSymbol.IsAsync
+                && Equals(methodSymbol.ReturnType, voidType)
+                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
+            {
+                ReportDiagnosticResult(context, methodSymbol);
+            }
+#endif
         }
     }
 }

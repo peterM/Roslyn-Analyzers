@@ -35,10 +35,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer {
+namespace MalikP.Analyzers.AsyncMethodAnalyzer
+{
     using System;
-    
-    
+    using System.Reflection;
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -46,178 +48,217 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
-        
+    internal class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+#if (NETSTANDARD1_6)
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MalikP.Analyzers.AsyncMethodAnalyzer.Resources", typeof(Resources).GetTypeInfo().Assembly);
+#else
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MalikP.Analyzers.AsyncMethodAnalyzer.Resources", typeof(Resources).Assembly);
+#endif
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
-            get {
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Each Asynchronous method or method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; should contains &apos;CancellationToken&apos; parameter to be possible cancel operation.
         /// </summary>
-        internal static string AddMissingCancellationToken_Description {
-            get {
+        internal static string AddMissingCancellationToken_Description
+        {
+            get
+            {
                 return ResourceManager.GetString("AddMissingCancellationToken_Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Method {0} missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string AddMissingCancellationToken_MessageFormat {
-            get {
+        internal static string AddMissingCancellationToken_MessageFormat
+        {
+            get
+            {
                 return ResourceManager.GetString("AddMissingCancellationToken_MessageFormat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Method missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string AddMissingCancellationToken_Title {
-            get {
+        internal static string AddMissingCancellationToken_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("AddMissingCancellationToken_Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Type names should be all uppercase..
         /// </summary>
-        internal static string AnalyzerDescription {
-            get {
+        internal static string AnalyzerDescription
+        {
+            get
+            {
                 return ResourceManager.GetString("AnalyzerDescription", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains lowercase letters.
         /// </summary>
-        internal static string AnalyzerMessageFormat {
-            get {
+        internal static string AnalyzerMessageFormat
+        {
+            get
+            {
                 return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Type name contains lowercase letters.
         /// </summary>
-        internal static string AnalyzerTitle {
-            get {
+        internal static string AnalyzerTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cancellation token should always have name &apos;cancellationToken&apos;.
         /// </summary>
-        internal static string RenameCancellationTokenParameter_Description {
-            get {
+        internal static string RenameCancellationTokenParameter_Description
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameCancellationTokenParameter_Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CancellationToken parameter &apos;{0}&apos; name differs from &apos;cancellationToken&apos;.
         /// </summary>
-        internal static string RenameCancellationTokenParameter_MessageFormat {
-            get {
+        internal static string RenameCancellationTokenParameter_MessageFormat
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameCancellationTokenParameter_MessageFormat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cancellation token parameter have incorrect name.
         /// </summary>
-        internal static string RenameCancellationTokenParameter_Title {
-            get {
+        internal static string RenameCancellationTokenParameter_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameCancellationTokenParameter_Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Each asynchronous method or method returning &apos;Task&apos;, &apos;Task&lt;T&gt;&apos; should have  &apos;Async&apos; suffix.
         /// </summary>
-        internal static string RenameMethodMissingAsyncSuffix_Description {
-            get {
+        internal static string RenameMethodMissingAsyncSuffix_Description
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameMethodMissingAsyncSuffix_Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Method {0} missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string RenameMethodMissingAsyncSuffix_MessageFormat {
-            get {
+        internal static string RenameMethodMissingAsyncSuffix_MessageFormat
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameMethodMissingAsyncSuffix_MessageFormat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Method missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string RenameMethodMissingAsyncSuffix_Title {
-            get {
+        internal static string RenameMethodMissingAsyncSuffix_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("RenameMethodMissingAsyncSuffix_Title", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Reorder methods parameter and put &apos;CancellationToken&apos; as last parameter..
         /// </summary>
-        internal static string ReorderCancellationTokenMethodParameter_Description {
-            get {
+        internal static string ReorderCancellationTokenMethodParameter_Description
+        {
+            get
+            {
                 return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_Description", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Method {0} parameter &apos;CancellationToken&apos; is not last parameter..
         /// </summary>
-        internal static string ReorderCancellationTokenMethodParameter_MessageFormat {
-            get {
+        internal static string ReorderCancellationTokenMethodParameter_MessageFormat
+        {
+            get
+            {
                 return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_MessageFormat", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Put &apos;CancellationToken&apos; as last parameter.
         /// </summary>
-        internal static string ReorderCancellationTokenMethodParameter_Title {
-            get {
+        internal static string ReorderCancellationTokenMethodParameter_Title
+        {
+            get
+            {
                 return ResourceManager.GetString("ReorderCancellationTokenMethodParameter_Title", resourceCulture);
             }
         }

@@ -60,11 +60,17 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             INamedTypeSymbol returnTypeSymbol = methodSymbol.ReturnType as INamedTypeSymbol;
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-
+#if (NETSTANDARD1_6)
+            if (!Equals(returnTypeSymbol, voidType)
+                && (methodSymbol.IsAsync
+                    || Equals(returnTypeSymbol, taskType)
+                    || returnTypeSymbol.ToString().StartsWith(_taskType)))
+#else
             if (!Equals(returnTypeSymbol, voidType)
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
                     || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture)))
+#endif
             {
                 INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
                 IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
