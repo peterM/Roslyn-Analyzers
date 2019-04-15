@@ -34,5 +34,18 @@ public async Task MyTaskMethodAsync(int a, CancellationToken cancellationToken)
 public async Task<T> MyTaskTMethodAsync(int a, CancellationToken cancellationToken)
 ```
 
+<br/>
+
+#### Severity
+
+__Warning:__
+
+ - `async void` methods  
+ - `Task` methods
+ - `Task<T>` methods
+ - `async Task` methods
+ - `async Task<T>` methods
+
+
 #### Code Fixes
 Reorder `CancellationToken` parameter as last method parameter.
