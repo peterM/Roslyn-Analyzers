@@ -37,7 +37,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
         private static readonly LocalizableString RenameMethodMissingAsyncSuffix_MessageFormat = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_MessageFormat), Resources.ResourceManager, typeof(Resources));
         private static readonly LocalizableString RenameMethodMissingAsyncSuffix_Description = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Description), Resources.ResourceManager, typeof(Resources));
 
-        public const string RenameMethodMissingAsyncSuffixDiagnosticId = "MP-AA-N-001";
+        public const string RenameMethodMissingAsyncSuffixDiagnosticId = "AANA001";
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             RenameMethodMissingAsyncSuffixDiagnosticId,
             RenameMethodMissingAsyncSuffix_Title,

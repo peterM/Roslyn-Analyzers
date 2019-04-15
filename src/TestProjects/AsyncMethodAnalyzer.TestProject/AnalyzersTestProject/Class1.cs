@@ -20,7 +20,6 @@ namespace AnalyzersTestProject
             return Task.CompletedTask;
         }
 
-
         public Task<bool> MA(CancellationToken cancellationToken, int a)
         {
             return Task.FromResult(true);
