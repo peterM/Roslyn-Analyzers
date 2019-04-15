@@ -56,7 +56,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 return;
             }
 
-#if (NETSTANDARD1_6)
+#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
                 && Equals(methodSymbol?.ReturnType, voidType)

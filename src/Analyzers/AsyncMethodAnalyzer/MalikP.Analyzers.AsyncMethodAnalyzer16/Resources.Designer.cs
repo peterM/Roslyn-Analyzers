@@ -70,7 +70,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             {
                 if (object.ReferenceEquals(resourceMan, null))
                 {
-#if (NETSTANDARD1_6)
+#if (NETSTANDARD1_3 || NETSTANDARD1_6)
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MalikP.Analyzers.AsyncMethodAnalyzer.Resources", typeof(Resources).GetTypeInfo().Assembly);
 #else
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MalikP.Analyzers.AsyncMethodAnalyzer.Resources", typeof(Resources).Assembly);

@@ -60,7 +60,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
 
-#if (NETSTANDARD1_6)
+#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync

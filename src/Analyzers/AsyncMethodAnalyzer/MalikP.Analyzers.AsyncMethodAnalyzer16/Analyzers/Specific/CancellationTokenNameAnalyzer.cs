@@ -46,7 +46,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
             IParameterSymbol cancellationTokenParameter = (IParameterSymbol)context.Symbol;
             INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
 
-#if (NETSTANDARD1_6)
+#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             if (cancellationTokenParameter != null
                && Equals(cancellationToken, cancellationTokenParameter.Type)
                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName))
