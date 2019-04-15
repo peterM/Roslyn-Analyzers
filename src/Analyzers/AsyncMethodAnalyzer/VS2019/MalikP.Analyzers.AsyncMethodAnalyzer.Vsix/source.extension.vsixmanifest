@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="MalikP.Analyzers.AsyncMethodAnalyzer.88168c91-88a1-4722-aae0-c44043b7a9f6" Version="0.2" Language="en-US" Publisher="MalikP. (Peter Malik)"/>
-        <DisplayName>MalikP.Analyzers.AsyncMethodAnalyzer</DisplayName>
+        <Identity Id="MalikP.Analyzers.AsyncMethodAnalyzer.88168c91-88a1-4722-aae0-c44043b7a9f6" Version="0.3" Language="en-US" Publisher="MalikP. (Peter Malik)"/>
+        <DisplayName>MalikP. Async Method Analyzer (VS 2019)</DisplayName>
         <Description xml:space="preserve">This is a diagnostic extension for the .NET Compiler Platform ("Roslyn") to analyze asynchronous methods. </Description>
         <MoreInfo>https://github.com/peterM/Roslyn-Analyzers</MoreInfo>
         <License>LICENSE.txt</License>
         <Icon>roslyn.png</Icon>
         <Tags>roslyn, analyzers</Tags>
+        <Preview>true</Preview>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0,17.0)" />
     </Installation>
     <Dependencies>
-	    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.7.2,)" />
     </Dependencies>
     <Assets>
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="MalikP.Analyzers.AsyncMethodAnalyzer" Path="|MalikP.Analyzers.AsyncMethodAnalyzer|" TargetVersion="[15.0,17.0)" />
-        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="MalikP.Analyzers.AsyncMethodAnalyzer" Path="|MalikP.Analyzers.AsyncMethodAnalyzer|" TargetVersion="[15.0,17.0)" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="MalikP.Analyzers.AsyncMethodAnalyzer" Path="|MalikP.Analyzers.AsyncMethodAnalyzer|" TargetVersion="[16.0,17.0)" />
+        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="MalikP.Analyzers.AsyncMethodAnalyzer" Path="|MalikP.Analyzers.AsyncMethodAnalyzer|" TargetVersion="[16.0,17.0)" />
     </Assets>
     <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,17.0)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[15.0,17.0)" DisplayName="Roslyn Language Services" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,17.0)" DisplayName="Roslyn Language Services" />
     </Prerequisites>
 </PackageManifest>
