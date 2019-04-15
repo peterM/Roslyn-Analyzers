@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>MalikP.Analyzers.AsyncMethodAnalyzer</PackageId>
-    <PackageVersion>1.0.0.0</PackageVersion>
+    <PackageVersion>0.2.0.0</PackageVersion>
     <Authors>Peter Malik</Authors>
     <PackageLicenseUrl>https://raw.githubusercontent.com/peterM/Roslyn-Analyzers/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peterM/Roslyn-Analyzers</PackageProjectUrl>
