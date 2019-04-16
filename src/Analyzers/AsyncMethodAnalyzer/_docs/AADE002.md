@@ -5,7 +5,7 @@
 | Id                     | AADE002                                         |
 | Category				 | `Design`										   |
 | Title                  | Add missing `CancellationToken` parameter     |
-| Severity               | `Warning` or `Error`                          |
+| Severity               | `Info`                                         |
 | Official Documentation |                                                 |
 
 <br />
@@ -38,10 +38,9 @@ public async Task<T> MyTaskTMethodAsync(int a, CancellationToken cancellationTok
 
 #### Severity
 
-__Warning:__
- - `async void` methods
+__Info:__
 
-__Error:__
+ - `async void` methods
  - `Task` methods
  - `Task<T>` methods
  - `async Task` methods

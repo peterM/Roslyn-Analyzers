@@ -5,7 +5,7 @@
 | Id                     | AADE001                                         |
 | Category				 | `Design`										   |
 | Title                  | Reorder `CancellationToken` as last           |
-| Severity               | `Warning`                                      |
+| Severity               | `Info`                                         |
 | Official Documentation |                                                 |
 
 <br />
@@ -38,7 +38,7 @@ public async Task<T> MyTaskTMethodAsync(int a, CancellationToken cancellationTok
 
 #### Severity
 
-__Warning:__
+__Info:__
 
  - `async void` methods  
  - `Task` methods

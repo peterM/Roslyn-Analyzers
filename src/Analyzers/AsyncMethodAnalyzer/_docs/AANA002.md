@@ -5,8 +5,8 @@
 | Id                     | AANA002                                                           |
 | Category				 | `Naming`										                     |
 | Title                  | `CancellationToken` name is different than `cancellationToken` |
-| Severity               | `Error`                                                           |
-| Official Documentation |                                                                    |
+| Severity               | `Info`                                                            |
+| Official Documentation |                                                                   |
 
 <br />
 
@@ -38,7 +38,7 @@ public async Task<T> MyTaskTMethodAsync(CancellationToken cancellatiuonToken)
 
 #### Severity
 
-__Error:__
+__Info:__
 
  - `async void` methods  
  - `Task` methods
