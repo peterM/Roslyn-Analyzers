@@ -49,10 +49,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override async Task<Document> ChangedDocumentHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
-            MethodDeclarationSyntax updatedMethod = syntaxDeclaration.AddParameterListParameters(
-               SyntaxFactory.Parameter(
-                   SyntaxFactory.Identifier(_identifierName))
-                                .WithType(SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName)));
+            SyntaxToken identifier = SyntaxFactory.Identifier(_identifierName);
+            TypeSyntax typeName = SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName);
+
+            ParameterSyntax parameter = SyntaxFactory.Parameter(identifier).WithType(typeName);
+
+            MethodDeclarationSyntax updatedMethod = syntaxDeclaration.AddParameterListParameters(parameter);
 
             SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken)
                 .ConfigureAwait(false);
