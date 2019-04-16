@@ -70,7 +70,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
 
             if (index != parameters.Count - 1)
             {
-                ReportDiagnosticResult(context, methodSymbol);
+                ReportDiagnosticResult(context, cancellationTokenParameter);
             }
         }
     }
