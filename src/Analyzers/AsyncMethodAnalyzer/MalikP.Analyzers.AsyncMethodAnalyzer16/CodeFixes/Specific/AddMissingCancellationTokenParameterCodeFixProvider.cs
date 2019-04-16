@@ -35,6 +35,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.Simplification;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
@@ -52,16 +54,27 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
             SyntaxToken identifier = SyntaxFactory.Identifier(_identifierName);
             TypeSyntax typeName = SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName);
 
-            ParameterSyntax parameter = SyntaxFactory.Parameter(identifier).WithType(typeName);
+            ParameterSyntax parameter = SyntaxFactory
+                .Parameter(identifier)
+                .WithType(typeName)
+                .WithAdditionalAnnotations(Simplifier.Annotation);
 
             MethodDeclarationSyntax updatedMethod = syntaxDeclaration.AddParameterListParameters(parameter);
 
             SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            SyntaxNode updatedSyntaxTree = syntaxTree.GetRoot().ReplaceNode(syntaxDeclaration, updatedMethod);
+            SyntaxNode updatedSyntaxTree = syntaxTree
+                .GetRoot()
+                .ReplaceNode(syntaxDeclaration, updatedMethod);
 
-            return document.WithSyntaxRoot(updatedSyntaxTree);
+            Document newDocument = document.WithSyntaxRoot(updatedSyntaxTree);
+
+            DocumentOptionSet options = await newDocument.GetOptionsAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return await Simplifier.ReduceAsync(newDocument, options, cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }
