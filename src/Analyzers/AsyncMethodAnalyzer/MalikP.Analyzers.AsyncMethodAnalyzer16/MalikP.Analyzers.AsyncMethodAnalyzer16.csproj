@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>MalikP.Analyzers.AsyncMethodAnalyzer</PackageId>
-    <PackageVersion>0.3.5.0</PackageVersion>
+    <PackageVersion>0.3.6.0</PackageVersion>
     <Authors>Peter Malik</Authors>
     <PackageLicenseUrl>https://raw.githubusercontent.com/peterM/Roslyn-Analyzers/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/peterM/Roslyn-Analyzers</PackageProjectUrl>
@@ -23,7 +23,7 @@
     <PackageTags>Async, analyzers</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <AssemblyName>MalikP.Analyzers.AsyncMethodAnalyzer16</AssemblyName>
-    <Version>0.3.5</Version>
+    <Version>0.3.6</Version>
     <Company>MalikP.</Company>
     <Product>Asynchronous Method Analyzer (VS2019)</Product>
     <RootNamespace>MalikP.Analyzers.AsyncMethodAnalyzer</RootNamespace>
