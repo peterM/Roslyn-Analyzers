@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingVoidMethodNameAsyncSuffix : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameMethodMissingAsyncSuffixRule.WarningRule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameMethodMissingAsyncSuffixRule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingCancellationTokenInVoidMethod : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => AddMissingCancellationTokenRule.WarningRule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => AddMissingCancellationTokenRule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

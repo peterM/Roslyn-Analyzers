@@ -42,7 +42,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             RenameCancellationTokenParameter_Title,
             RenameCancellationTokenParameter_MessageFormat,
             Category,
-            DiagnosticSeverity.Error,
+            DiagnosticSeverity.Info,
             isEnabledByDefault: true,
             description: RenameCancellationTokenParameter_Description);
     }

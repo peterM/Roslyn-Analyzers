@@ -42,7 +42,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             ReorderCancellationTokenMethodParameterRule_Title,
             ReorderCancellationTokenMethodParameterRule_MessageFormat,
             Category,
-            DiagnosticSeverity.Warning,
+            DiagnosticSeverity.Info,
             isEnabledByDefault: true,
             description: ReorderCancellationTokenMethodParameterRule_Description);
     }

@@ -43,17 +43,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             RenameMethodMissingAsyncSuffix_Title,
             RenameMethodMissingAsyncSuffix_MessageFormat,
             Category,
-            DiagnosticSeverity.Error,
+            DiagnosticSeverity.Info,
             isEnabledByDefault: true,
             description: RenameMethodMissingAsyncSuffix_Description);
-
-        public static readonly DiagnosticDescriptor WarningRule = new DiagnosticDescriptor(
-           RenameMethodMissingAsyncSuffixDiagnosticId,
-           RenameMethodMissingAsyncSuffix_Title,
-           RenameMethodMissingAsyncSuffix_MessageFormat,
-           Category,
-           DiagnosticSeverity.Warning,
-           isEnabledByDefault: true,
-           description: RenameMethodMissingAsyncSuffix_Description);
     }
 }

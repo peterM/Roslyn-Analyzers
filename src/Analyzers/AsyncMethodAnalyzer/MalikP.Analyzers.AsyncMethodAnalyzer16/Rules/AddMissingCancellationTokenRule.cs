@@ -44,16 +44,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             AddMissingCancellationToken_Title,
             AddMissingCancellationToken_MessageFormat,
             Category,
-            DiagnosticSeverity.Error,
-            isEnabledByDefault: true,
-            description: AddMissingCancellationToken_Description);
-
-        public static readonly DiagnosticDescriptor WarningRule = new DiagnosticDescriptor(
-            AddMissingCancellationTokenDiagnosticId,
-            AddMissingCancellationToken_Title,
-            AddMissingCancellationToken_MessageFormat,
-            Category,
-            DiagnosticSeverity.Warning,
+            DiagnosticSeverity.Info,
             isEnabledByDefault: true,
             description: AddMissingCancellationToken_Description);
     }
