@@ -8,12 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer
-{
+namespace MalikP.Analyzers.AsyncMethodAnalyzer {
     using System;
     using System.Reflection;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -24,246 +23,202 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if (object.ReferenceEquals(resourceMan, null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MalikP.Analyzers.AsyncMethodAnalyzer.Resources", typeof(Resources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Each asynchronous method or method returning &apos;Task&apos;, &apos;Task&lt;T&gt;&apos; should have &apos;Async&apos; suffix.
+        ///   Looks up a localized string similar to Method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; should have &apos;Async&apos; suffix..
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_Description
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_Description {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_TaskMethod_Rule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method &apos;{0}&apos; missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_Title
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_Title {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_TaskMethod_Rule_Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Each asynchronous method or method returning &apos;Task&apos;, &apos;Task&lt;T&gt;&apos; should have &apos;Async&apos; suffix.
+        ///   Looks up a localized string similar to Asynchronous &apos;void&apos; method should have &apos;Async&apos; suffix..
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_Description
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_Description {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_VoidMethod_Rule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method &apos;{0}&apos; missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method missing &apos;Async&apos; suffix.
         /// </summary>
-        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_Title
-        {
-            get
-            {
+        internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_Title {
+            get {
                 return ResourceManager.GetString("MethodMissingAsyncSuffix_VoidMethod_Rule_Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Each Asynchronous method or method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; should contains &apos;CancellationToken&apos; parameter to be possible cancel operation.
+        ///   Looks up a localized string similar to Method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; method should contain &apos;CancellationToken&apos; parameter..
         /// </summary>
-        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_Description
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_Description {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_TaskMethod_Rule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method &apos;{0}&apos; missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Method missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_Title
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_TaskMethod_Rule_Title {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_TaskMethod_Rule_Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Each Asynchronous method or method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; should contains &apos;CancellationToken&apos; parameter to be possible cancel operation.
+        ///   Looks up a localized string similar to Asynchronous &apos;void&apos; method should contain &apos;CancellationToken&apos; parameter..
         /// </summary>
-        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_Description
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_Description {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_VoidMethod_Rule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Method &apos;{0}&apos; missing &apos;CancellationToken&apos; parameter.
+        ///   Looks up a localized string similar to Asynchronous method &apos;{0}&apos; missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Method missing &apos;CancellationToken&apos; parameter.
+        ///   Looks up a localized string similar to Asynchronous method missing &apos;CancellationToken&apos; parameter.
         /// </summary>
-        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_Title
-        {
-            get
-            {
+        internal static string MissingCancellationTokenParameter_VoidMethod_Rule_Title {
+            get {
                 return ResourceManager.GetString("MissingCancellationTokenParameter_VoidMethod_Rule_Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;CancellationToken&apos; should always have name &apos;cancellationToken&apos;.
+        ///   Looks up a localized string similar to Parameter &apos;CancellationToken&apos; should be named &apos;cancellationToken&apos;..
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterNameRule_Description
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterNameRule_Description {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterNameRule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to CancellationToken parameter &apos;{0}&apos; name differs from &apos;cancellationToken&apos;.
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterNameRule_MessageFormat
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterNameRule_MessageFormat {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterNameRule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Parameter &apos;CancellationToken&apos; has incorrect name.
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterNameRule_Title
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterNameRule_Title {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterNameRule_Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Reorder methods parameter and set &apos;CancellationToken&apos; as last parameter..
+        ///   Looks up a localized string similar to Position of &apos;CancellationToken&apos; parameter is wrong. Parameter &apos;CancellationToken&apos; should be last method parameter..
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterPositionRule_Description
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterPositionRule_Description {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterPositionRule_Description", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Method &apos;{0}&apos; does not contain parameter &apos;CancellationToken&apos; as last parameter..
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; position is wrong.
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterPositionRule_MessageFormat
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterPositionRule_MessageFormat {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterPositionRule_MessageFormat", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Add &apos;CancellationToken&apos; as last parameter.
+        ///   Looks up a localized string similar to Reorder &apos;CancellationToken&apos; as last.
         /// </summary>
-        internal static string WrongCancellationTokenMethodParameterPositionRule_Title
-        {
-            get
-            {
+        internal static string WrongCancellationTokenMethodParameterPositionRule_Title {
+            get {
                 return ResourceManager.GetString("WrongCancellationTokenMethodParameterPositionRule_Title", resourceCulture);
             }
         }
