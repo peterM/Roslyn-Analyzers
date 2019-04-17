@@ -51,6 +51,7 @@
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Resources.Designer.cs" Link="Resources.Designer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\AbstractDiagnosticRuleDescriptor.cs" Link="Rules\AbstractDiagnosticRuleDescriptor.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_TaskMethod_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_TaskMethod_Rule.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_VoidMethod_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_VoidMethod_Rule.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\WrongCancellationTokenMethodParameterPositionRule.cs" Link="Rules\Design\WrongCancellationTokenMethodParameterPositionRule.cs" />

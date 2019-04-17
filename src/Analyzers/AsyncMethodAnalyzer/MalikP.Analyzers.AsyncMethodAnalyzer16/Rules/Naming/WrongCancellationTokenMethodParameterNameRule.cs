@@ -29,23 +29,32 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal static class WrongCancellationTokenMethodParameterNameRule
+    internal sealed class WrongCancellationTokenMethodParameterNameRule : AbstractDiagnosticRuleDescriptor
     {
-        public const string DiagnosticId = "AANA003";
+        protected override string InternalDiagnosticId => DiagnosticId;
 
-        private const string Category = "Naming";
+        protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Title), Resources.ResourceManager, typeof(Resources));
 
-        public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            DiagnosticId,
-            Title,
-            MessageFormat,
-            Category,
-            DiagnosticSeverity.Info,
-            isEnabledByDefault: true,
-            description: Description);
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Description), Resources.ResourceManager, typeof(Resources));
+
+        protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
+
+        static WrongCancellationTokenMethodParameterNameRule()
+        {
+            WrongCancellationTokenMethodParameterNameRule descriptot = new WrongCancellationTokenMethodParameterNameRule();
+            Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
+        }
+
+        private WrongCancellationTokenMethodParameterNameRule()
+        {
+        }
+
+        internal static DiagnosticDescriptor Rule { get; }
+
+        internal static string DiagnosticId => "AANA003";
     }
 }

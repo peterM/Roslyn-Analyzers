@@ -29,23 +29,32 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal static class WrongCancellationTokenMethodParameterPositionRule
+    internal sealed class WrongCancellationTokenMethodParameterPositionRule : AbstractDiagnosticRuleDescriptor
     {
-        public const string DiagnosticId = "AADE001";
+        protected override string InternalDiagnosticId => DiagnosticId;
 
-        private const string Category = "Design";
+        protected override string Category => AbstractDiagnosticRuleDescriptor.Design;
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Title), Resources.ResourceManager, typeof(Resources));
 
-        public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            DiagnosticId,
-            Title,
-            MessageFormat,
-            Category,
-            DiagnosticSeverity.Info,
-            isEnabledByDefault: true,
-            description: Description);
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Description), Resources.ResourceManager, typeof(Resources));
+
+        protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
+
+        static WrongCancellationTokenMethodParameterPositionRule()
+        {
+            WrongCancellationTokenMethodParameterPositionRule descriptot = new WrongCancellationTokenMethodParameterPositionRule();
+            Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
+        }
+
+        private WrongCancellationTokenMethodParameterPositionRule()
+        {
+        }
+
+        internal static DiagnosticDescriptor Rule { get; }
+
+        internal static string DiagnosticId => "AADE001";
     }
 }
