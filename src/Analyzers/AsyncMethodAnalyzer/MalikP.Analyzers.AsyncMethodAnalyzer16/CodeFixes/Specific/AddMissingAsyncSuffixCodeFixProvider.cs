@@ -50,8 +50,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         protected override string[] DiagnosticId =>
             new[]
             {
-                MethodMissingAsyncSuffix_TaskMethod_Rule.MethodMissingAsyncSuffixDiagnosticId,
-                MethodMissingAsyncSuffix_VoidMethod_Rule.MethodMissingAsyncSuffixDiagnosticId
+                MethodMissingAsyncSuffix_TaskMethod_Rule.DiagnosticId,
+                MethodMissingAsyncSuffix_VoidMethod_Rule.DiagnosticId
             };
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)

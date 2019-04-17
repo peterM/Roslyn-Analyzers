@@ -109,3 +109,4 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Test
         }
     }
 }
+ 

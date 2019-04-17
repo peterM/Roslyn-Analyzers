@@ -31,16 +31,16 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
     internal static class WrongCancellationTokenMethodParameterNameRule
     {
-        public const string RenameCancellationTokenParameterDiagnosticId = "AANA003";
+        public const string DiagnosticId = "AANA003";
 
         private const string Category = "Naming";
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Description), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Description), Resources.ResourceManager, typeof(Resources));
 
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            RenameCancellationTokenParameterDiagnosticId,
+            DiagnosticId,
             Title,
             MessageFormat,
             Category,

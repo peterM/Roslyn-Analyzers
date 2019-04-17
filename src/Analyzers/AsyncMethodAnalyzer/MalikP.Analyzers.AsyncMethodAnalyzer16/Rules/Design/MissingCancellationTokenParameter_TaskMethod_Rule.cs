@@ -31,16 +31,16 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
     internal static class MissingCancellationTokenParameter_TaskMethod_Rule
     {
-        public const string AddMissingCancellationTokenDiagnosticId = "AADE002";
+        public const string DiagnosticId = "AADE002";
 
         private const string Category = "Design";
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Description), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_TaskMethod_Rule_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_TaskMethod_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            AddMissingCancellationTokenDiagnosticId,
+            DiagnosticId,
             Title,
             MessageFormat,
             Category,

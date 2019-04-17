@@ -31,16 +31,16 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
     internal static class MethodMissingAsyncSuffix_VoidMethod_Rule
     {
-        public const string MethodMissingAsyncSuffixDiagnosticId = "AANA002";
+        public const string DiagnosticId = "AANA002";
 
         private const string Category = "Naming";
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Description), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_VoidMethod_Rule_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_VoidMethod_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            MethodMissingAsyncSuffixDiagnosticId,
+            DiagnosticId,
             Title,
             MessageFormat,
             Category,

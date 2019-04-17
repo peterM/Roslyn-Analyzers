@@ -50,7 +50,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         protected override string[] DiagnosticId =>
             new[]
             {
-                WrongCancellationTokenMethodParameterPositionRule.ReorderCancellationTokenMethodParameterDiagnosticId
+                WrongCancellationTokenMethodParameterPositionRule.DiagnosticId
             };
 
         protected override Task<Document> ChangedDocumentHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)

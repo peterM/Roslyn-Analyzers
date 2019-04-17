@@ -117,41 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddMissingCancellationToken_Description" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_Description" xml:space="preserve">
+    <value>Each asynchronous method or method returning 'Task', 'Task&lt;T&gt;' should have 'Async' suffix</value>
+  </data>
+  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'Async' suffix</value>
+  </data>
+  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_Title" xml:space="preserve">
+    <value>Method missing 'Async' suffix</value>
+  </data>
+  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_Description" xml:space="preserve">
+    <value>Each asynchronous method or method returning 'Task', 'Task&lt;T&gt;' should have 'Async' suffix</value>
+  </data>
+  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'Async' suffix</value>
+  </data>
+  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_Title" xml:space="preserve">
+    <value>Method missing 'Async' suffix</value>
+  </data>
+  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Description" xml:space="preserve">
     <value>Each Asynchronous method or method returning 'Task' or 'Task&lt;T&gt;' should contains 'CancellationToken' parameter to be possible cancel operation</value>
   </data>
-  <data name="AddMissingCancellationToken_MessageFormat" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat" xml:space="preserve">
     <value>Method '{0}' missing 'CancellationToken' parameter</value>
   </data>
-  <data name="AddMissingCancellationToken_Title" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Title" xml:space="preserve">
     <value>Method missing 'CancellationToken' parameter</value>
   </data>
-  <data name="RenameCancellationTokenParameter_Description" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_Description" xml:space="preserve">
+    <value>Each Asynchronous method or method returning 'Task' or 'Task&lt;T&gt;' should contains 'CancellationToken' parameter to be possible cancel operation</value>
+  </data>
+  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'CancellationToken' parameter</value>
+  </data>
+  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_Title" xml:space="preserve">
+    <value>Method missing 'CancellationToken' parameter</value>
+  </data>
+  <data name="WrongCancellationTokenMethodParameterNameRule_Description" xml:space="preserve">
     <value>Parameter 'CancellationToken' should always have name 'cancellationToken'</value>
   </data>
-  <data name="RenameCancellationTokenParameter_MessageFormat" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterNameRule_MessageFormat" xml:space="preserve">
     <value>CancellationToken parameter '{0}' name differs from 'cancellationToken'</value>
   </data>
-  <data name="RenameCancellationTokenParameter_Title" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterNameRule_Title" xml:space="preserve">
     <value>Parameter 'CancellationToken' has incorrect name</value>
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
-  <data name="RenameMethodMissingAsyncSuffix_Description" xml:space="preserve">
-    <value>Each asynchronous method or method returning 'Task', 'Task&lt;T&gt;' should have 'Async' suffix</value>
-  </data>
-  <data name="RenameMethodMissingAsyncSuffix_MessageFormat" xml:space="preserve">
-    <value>Method '{0}' missing 'Async' suffix</value>
-  </data>
-  <data name="RenameMethodMissingAsyncSuffix_Title" xml:space="preserve">
-    <value>Method missing 'Async' suffix</value>
-  </data>
-  <data name="ReorderCancellationTokenMethodParameter_Description" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_Description" xml:space="preserve">
     <value>Reorder methods parameter and set 'CancellationToken' as last parameter.</value>
   </data>
-  <data name="ReorderCancellationTokenMethodParameter_MessageFormat" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_MessageFormat" xml:space="preserve">
     <value>Method '{0}' does not contain parameter 'CancellationToken' as last parameter.</value>
   </data>
-  <data name="ReorderCancellationTokenMethodParameter_Title" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_Title" xml:space="preserve">
     <value>Add 'CancellationToken' as last parameter</value>
   </data>
 </root>

@@ -31,16 +31,16 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
     internal static class WrongCancellationTokenMethodParameterPositionRule
     {
-        public const string ReorderCancellationTokenMethodParameterDiagnosticId = "AADE001";
+        public const string DiagnosticId = "AADE001";
 
         private const string Category = "Design";
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Description), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Description), Resources.ResourceManager, typeof(Resources));
 
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            ReorderCancellationTokenMethodParameterDiagnosticId,
+            DiagnosticId,
             Title,
             MessageFormat,
             Category,
