@@ -150,7 +150,7 @@
     <comment>AADE002</comment>
   </data>
   <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Title" xml:space="preserve">
-    <value>Method 'async void', 'Task', 'Task&lt;T&gt;' missing 'CancellationToken' parameter</value>
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' missing 'CancellationToken' parameter</value>
     <comment>AADE002</comment>
   </data>
   <data name="MissingCancellationTokenParameter_VoidMethod_Rule_Description" xml:space="preserve">

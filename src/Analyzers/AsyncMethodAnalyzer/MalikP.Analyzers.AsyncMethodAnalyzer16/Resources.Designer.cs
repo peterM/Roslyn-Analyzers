@@ -80,7 +80,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method missing &apos;Async&apos; suffix.
+        ///   Looks up a localized string similar to Method returning &apos;Task&apos;, &apos;Task&lt;T&gt;&apos; missing &apos;Async&apos; suffix.
         /// </summary>
         internal static string MethodMissingAsyncSuffix_TaskMethod_Rule_Title {
             get {
@@ -107,7 +107,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method missing &apos;Async&apos; suffix.
+        ///   Looks up a localized string similar to Asynchronous &apos;void&apos; method missing &apos;Async&apos; suffix.
         /// </summary>
         internal static string MethodMissingAsyncSuffix_VoidMethod_Rule_Title {
             get {
@@ -134,7 +134,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method missing &apos;CancellationToken&apos; parameter.
+        ///   Looks up a localized string similar to Method returning &apos;Task&apos; or &apos;Task&lt;T&gt;&apos; missing &apos;CancellationToken&apos; parameter.
         /// </summary>
         internal static string MissingCancellationTokenParameter_TaskMethod_Rule_Title {
             get {
@@ -152,7 +152,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asynchronous method &apos;{0}&apos; missing &apos;CancellationToken&apos; parameter.
+        ///   Looks up a localized string similar to Asynchronous &apos;Task&apos;, &apos;Task&lt;T&gt;&apos; method &apos;{0}&apos; missing &apos;CancellationToken&apos; parameter.
         /// </summary>
         internal static string MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat {
             get {
@@ -161,7 +161,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asynchronous method missing &apos;CancellationToken&apos; parameter.
+        ///   Looks up a localized string similar to Asynchronous &apos;void&apos; method missing &apos;CancellationToken&apos; parameter.
         /// </summary>
         internal static string MissingCancellationTokenParameter_VoidMethod_Rule_Title {
             get {
@@ -188,7 +188,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;CancellationToken&apos; has incorrect name.
+        ///   Looks up a localized string similar to Parameter &apos;CancellationToken&apos; has wrong name.
         /// </summary>
         internal static string WrongCancellationTokenMethodParameterNameRule_Title {
             get {
