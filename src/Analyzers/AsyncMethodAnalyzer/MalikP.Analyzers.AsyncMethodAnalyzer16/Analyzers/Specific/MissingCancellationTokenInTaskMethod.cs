@@ -29,7 +29,7 @@ using System;
 using System.Linq;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -39,7 +39,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingCancellationTokenInTaskMethod : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => AddMissingCancellationTokenRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_TaskMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 
@@ -57,8 +57,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 return;
             }
 
-            INamedTypeSymbol returnTypeSymbol = methodSymbol?.ReturnType as INamedTypeSymbol;
-            if (returnTypeSymbol == null)
+            if (!(methodSymbol?.ReturnType is INamedTypeSymbol returnTypeSymbol))
             {
                 return;
             }

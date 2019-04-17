@@ -27,23 +27,25 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal static class ReorderCancellationTokenMethodParameterRule
+    internal static class WrongCancellationTokenMethodParameterPositionRule
     {
-        private const string Category = "Design";
-        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_Title = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_MessageFormat = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString ReorderCancellationTokenMethodParameterRule_Description = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Description), Resources.ResourceManager, typeof(Resources));
-
         public const string ReorderCancellationTokenMethodParameterDiagnosticId = "AADE001";
+
+        private const string Category = "Design";
+
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.ReorderCancellationTokenMethodParameter_Description), Resources.ResourceManager, typeof(Resources));
+
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
             ReorderCancellationTokenMethodParameterDiagnosticId,
-            ReorderCancellationTokenMethodParameterRule_Title,
-            ReorderCancellationTokenMethodParameterRule_MessageFormat,
+            Title,
+            MessageFormat,
             Category,
             DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            description: ReorderCancellationTokenMethodParameterRule_Description);
+            description: Description);
     }
 }

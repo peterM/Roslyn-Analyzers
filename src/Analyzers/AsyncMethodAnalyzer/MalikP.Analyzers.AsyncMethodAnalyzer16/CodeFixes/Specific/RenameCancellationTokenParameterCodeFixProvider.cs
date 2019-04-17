@@ -31,7 +31,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -50,7 +50,11 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override string Title => "Rename to 'cancellationToken'";
 
-        protected override string DiagnosticId => RenameCancellationTokenParameterRule.RenameCancellationTokenParameterDiagnosticId;
+        protected override string[] DiagnosticId =>
+            new[]
+            {
+                WrongCancellationTokenMethodParameterNameRule.RenameCancellationTokenParameterDiagnosticId
+            };
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, ParameterSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {

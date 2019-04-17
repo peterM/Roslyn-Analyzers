@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: RenameCancellationTokenParameterRule.cs 
+// File: AddMissingCancellationTokenRule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,23 +27,25 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal static class RenameCancellationTokenParameterRule
+    internal static class MissingCancellationTokenParameter_TaskMethod_Rule
     {
-        private const string Category = "Naming";
-        private static readonly LocalizableString RenameCancellationTokenParameter_Title = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameCancellationTokenParameter_MessageFormat = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameCancellationTokenParameter_Description = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Description), Resources.ResourceManager, typeof(Resources));
+        public const string AddMissingCancellationTokenDiagnosticId = "AADE002";
 
-        public const string RenameCancellationTokenParameterDiagnosticId = "AANA002";
+        private const string Category = "Design";
+
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.AddMissingCancellationToken_Description), Resources.ResourceManager, typeof(Resources));
+
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            RenameCancellationTokenParameterDiagnosticId,
-            RenameCancellationTokenParameter_Title,
-            RenameCancellationTokenParameter_MessageFormat,
+            AddMissingCancellationTokenDiagnosticId,
+            Title,
+            MessageFormat,
             Category,
             DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            description: RenameCancellationTokenParameter_Description);
+            description: Description);
     }
 }

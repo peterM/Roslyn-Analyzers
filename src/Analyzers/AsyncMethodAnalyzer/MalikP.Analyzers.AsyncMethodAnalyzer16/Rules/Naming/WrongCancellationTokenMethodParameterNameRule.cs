@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: RenameMethodMissingAsyncSuffixRule.cs 
+// File: RenameCancellationTokenParameterRule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,24 +27,25 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal static class RenameMethodMissingAsyncSuffixRule
+    internal static class WrongCancellationTokenMethodParameterNameRule
     {
+        public const string RenameCancellationTokenParameterDiagnosticId = "AANA003";
+
         private const string Category = "Naming";
 
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_Title = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Title), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_MessageFormat = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString RenameMethodMissingAsyncSuffix_Description = new LocalizableResourceString(nameof(Resources.RenameMethodMissingAsyncSuffix_Description), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Title), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.RenameCancellationTokenParameter_Description), Resources.ResourceManager, typeof(Resources));
 
-        public const string RenameMethodMissingAsyncSuffixDiagnosticId = "AANA001";
         public static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(
-            RenameMethodMissingAsyncSuffixDiagnosticId,
-            RenameMethodMissingAsyncSuffix_Title,
-            RenameMethodMissingAsyncSuffix_MessageFormat,
+            RenameCancellationTokenParameterDiagnosticId,
+            Title,
+            MessageFormat,
             Category,
             DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            description: RenameMethodMissingAsyncSuffix_Description);
+            description: Description);
     }
 }

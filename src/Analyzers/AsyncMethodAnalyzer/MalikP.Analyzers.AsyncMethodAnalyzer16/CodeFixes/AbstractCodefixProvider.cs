@@ -49,7 +49,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
 
         protected virtual string EquivalenceKey => Title;
 
-        protected abstract string DiagnosticId { get; }
+        protected abstract string[] DiagnosticId { get; }
 
         protected abstract void RegisterSolutionCodeFix(CodeFixContext context, Diagnostic diagnostic, TSpecificSyntax specificSyntax);
 
@@ -87,35 +87,38 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
                 .OfType<TSyntax>();
         }
 
-        private async Task RegisterCodeFixAsync(CodeFixContext context, SyntaxNode root, string diagnosticId)
+        private async Task RegisterCodeFixAsync(CodeFixContext context, SyntaxNode root, params string[] diagnosticId)
         {
             SemanticModel semanticModel = await context.Document.GetSemanticModelAsync()
                 .ConfigureAwait(false);
 
-            Diagnostic diagnostic = GetDiagnostic(context, diagnosticId);
-            if (diagnostic == null)
+            IEnumerable<Diagnostic> diagnostics = GetDiagnostic(context, diagnosticId);
+            foreach (Diagnostic diagnostic in diagnostics)
             {
-                return;
+                if (diagnostic == null)
+                {
+                    return;
+                }
+
+                TextSpan diagnosticSpan = GetDiagnosticSpan(diagnostic);
+                IEnumerable<TSpecificSyntax> syntaxes = GetSyntaxes<TSpecificSyntax>(root, diagnosticSpan);
+                TSpecificSyntax specificSyntax = GetSpecificSyntax(semanticModel, syntaxes);
+
+                if (specificSyntax == null)
+                {
+                    return;
+                }
+
+                RegisterDocumentCodeFix(context, diagnostic, specificSyntax);
+                RegisterSolutionCodeFix(context, diagnostic, specificSyntax);
             }
-
-            TextSpan diagnosticSpan = GetDiagnosticSpan(diagnostic);
-            IEnumerable<TSpecificSyntax> syntaxes = GetSyntaxes<TSpecificSyntax>(root, diagnosticSpan);
-            TSpecificSyntax specificSyntax = GetSpecificSyntax(semanticModel, syntaxes);
-
-            if (specificSyntax == null)
-            {
-                return;
-            }
-
-            RegisterDocumentCodeFix(context, diagnostic, specificSyntax);
-            RegisterSolutionCodeFix(context, diagnostic, specificSyntax);
         }
 
-        private Diagnostic GetDiagnostic(CodeFixContext context, string diagnosticId)
+        private IEnumerable<Diagnostic> GetDiagnostic(CodeFixContext context, string[] diagnosticId)
         {
             return context
                 .Diagnostics
-                .FirstOrDefault(diagnosticItem => diagnosticItem.Id == diagnosticId);
+                .Where(diagnosticItem => diagnosticId.Contains(diagnosticItem.Id));
         }
 
         protected virtual TSpecificSyntax GetSpecificSyntax(SemanticModel semanticModel, IEnumerable<TSpecificSyntax> syntaxes)

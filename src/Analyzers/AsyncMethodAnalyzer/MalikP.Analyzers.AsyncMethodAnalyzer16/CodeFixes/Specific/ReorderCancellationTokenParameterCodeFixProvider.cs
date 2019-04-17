@@ -31,7 +31,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -41,13 +41,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffixCodeFixProvider)), Shared]
-    public sealed class ReorderCancellationTokenParameter : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
+    public sealed class ReorderCancellationTokenParameterCodeFixProvider : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
     {
         private const string _identifierType = "CancellationToken";
 
         protected override string Title => "Reorder 'CancellationToken' as last";
 
-        protected override string DiagnosticId => ReorderCancellationTokenMethodParameterRule.ReorderCancellationTokenMethodParameterDiagnosticId;
+        protected override string[] DiagnosticId =>
+            new[]
+            {
+                WrongCancellationTokenMethodParameterPositionRule.ReorderCancellationTokenMethodParameterDiagnosticId
+            };
 
         protected override Task<Document> ChangedDocumentHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {

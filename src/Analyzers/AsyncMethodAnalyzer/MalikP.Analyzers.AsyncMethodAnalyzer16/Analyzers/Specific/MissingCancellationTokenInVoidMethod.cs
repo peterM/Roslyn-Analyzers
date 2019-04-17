@@ -28,7 +28,7 @@
 using System.Linq;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingCancellationTokenInVoidMethod : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => AddMissingCancellationTokenRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_VoidMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

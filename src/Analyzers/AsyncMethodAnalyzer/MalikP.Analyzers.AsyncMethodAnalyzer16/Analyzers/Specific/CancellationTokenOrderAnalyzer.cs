@@ -27,7 +27,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -37,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class CancellationTokenOrderAnalyzer : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => ReorderCancellationTokenMethodParameterRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterPositionRule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

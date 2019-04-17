@@ -28,7 +28,7 @@
 using System;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class MissingTaskMethodNameAsyncSuffix : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => RenameMethodMissingAsyncSuffixRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_TaskMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

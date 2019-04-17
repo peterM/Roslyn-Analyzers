@@ -29,7 +29,7 @@ using System.Composition;
 using System.Threading;
 using System.Threading.Tasks;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -47,7 +47,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override string Title => "Add missing 'Async' suffix";
 
-        protected override string DiagnosticId => RenameMethodMissingAsyncSuffixRule.RenameMethodMissingAsyncSuffixDiagnosticId;
+        protected override string[] DiagnosticId =>
+            new[]
+            {
+                MethodMissingAsyncSuffix_TaskMethod_Rule.MethodMissingAsyncSuffixDiagnosticId,
+                MethodMissingAsyncSuffix_VoidMethod_Rule.MethodMissingAsyncSuffixDiagnosticId
+            };
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {

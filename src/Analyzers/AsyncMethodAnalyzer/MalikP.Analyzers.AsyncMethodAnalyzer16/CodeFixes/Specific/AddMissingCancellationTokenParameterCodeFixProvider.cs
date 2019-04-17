@@ -29,7 +29,7 @@ using System.Composition;
 using System.Threading;
 using System.Threading.Tasks;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
@@ -47,7 +47,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override string Title => "Add missing 'CancellationToken'";
 
-        protected override string DiagnosticId => AddMissingCancellationTokenRule.AddMissingCancellationTokenDiagnosticId;
+        protected override string[] DiagnosticId =>
+            new[]
+            {
+                MissingCancellationTokenParameter_TaskMethod_Rule.AddMissingCancellationTokenDiagnosticId,
+                MissingCancellationTokenParameter_VoidMethod_Rule.AddMissingCancellationTokenDiagnosticId
+            };
 
         protected override async Task<Document> ChangedDocumentHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
