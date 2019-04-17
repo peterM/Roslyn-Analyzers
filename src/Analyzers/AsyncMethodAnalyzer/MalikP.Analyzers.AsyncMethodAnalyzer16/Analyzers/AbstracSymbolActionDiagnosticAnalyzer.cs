@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AbstractDiagnosticAnalyzer.cs 
+// File: AbstracSymbolActionDiagnosticAnalyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,32 +25,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Immutable;
-
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    public abstract class AbstractDiagnosticAnalyzer : DiagnosticAnalyzer
+    public abstract class AbstracSymbolActionDiagnosticAnalyzer : AbstractDiagnosticAnalyzer
     {
-        protected const string _expectedParameterName = "cancellationToken";
-        protected const string _cancellationTokenType = "System.Threading.CancellationToken";
-        protected const string _taskType = "System.Threading.Tasks.Task";
-        protected const string _asyncSuffix = "Async";
+        protected abstract SymbolKind[] SymbolKinds { get; }
 
-        protected AbstractDiagnosticAnalyzer()
-        {
-        }
+        protected abstract void AnalyzeSymbol(SymbolAnalysisContext context);
 
-        protected abstract DiagnosticDescriptor DiagnosticDescriptor { get; }
-
-        public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptor);
-
-        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
-        {
-            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name);
-            context.ReportDiagnostic(diagnostic);
-        }
+        public override void Initialize(AnalysisContext context) => context.RegisterSymbolAction(AnalyzeSymbol, SymbolKinds);
     }
 }

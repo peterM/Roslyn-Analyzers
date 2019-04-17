@@ -36,7 +36,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterPositionAnalyzer : AbstractDiagnosticAnalyzer
+    public class CancellationTokenParameterPositionAnalyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterPositionRule.Rule;
 

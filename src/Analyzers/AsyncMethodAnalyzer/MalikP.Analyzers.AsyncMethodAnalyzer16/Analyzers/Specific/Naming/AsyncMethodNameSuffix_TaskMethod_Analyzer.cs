@@ -35,7 +35,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_TaskMethod_Analyzer : AbstractDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_TaskMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 

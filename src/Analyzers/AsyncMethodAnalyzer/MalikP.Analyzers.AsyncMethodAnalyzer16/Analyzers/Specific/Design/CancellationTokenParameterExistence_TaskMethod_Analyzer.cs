@@ -36,7 +36,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_TaskMethod_Analyzer : AbstractDiagnosticAnalyzer
+    public class CancellationTokenParameterExistence_TaskMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 

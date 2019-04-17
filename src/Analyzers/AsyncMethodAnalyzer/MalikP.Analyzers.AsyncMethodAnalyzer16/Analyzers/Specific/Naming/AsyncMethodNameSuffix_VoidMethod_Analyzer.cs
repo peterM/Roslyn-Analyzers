@@ -35,7 +35,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_VoidMethod_Analyzer : AbstractDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_VoidMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_VoidMethod_Rule.Rule;
 
