@@ -130,7 +130,7 @@
     <comment>AANA001</comment>
   </data>
   <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_Description" xml:space="preserve">
-    <value>Asynchronous 'void' method should have 'Async' suffix.</value>
+    <value>Asynchronous 'void' method name should end with 'Async' suffix.</value>
     <comment>AANA002</comment>
   </data>
   <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat" xml:space="preserve">
@@ -142,7 +142,7 @@
     <comment>AANA002</comment>
   </data>
   <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Description" xml:space="preserve">
-    <value>Method returning 'Task' or 'Task&lt;T&gt;' method should contain 'CancellationToken' parameter.</value>
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' should contain 'CancellationToken' parameter.</value>
     <comment>AADE002</comment>
   </data>
   <data name="MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat" xml:space="preserve">
