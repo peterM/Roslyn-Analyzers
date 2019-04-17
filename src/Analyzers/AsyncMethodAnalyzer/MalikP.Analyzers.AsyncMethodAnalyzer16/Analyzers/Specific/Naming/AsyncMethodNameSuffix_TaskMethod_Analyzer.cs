@@ -37,6 +37,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class AsyncMethodNameSuffix_TaskMethod_Analyzer : AbstractDiagnosticAnalyzer
     {
+        private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
+
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_TaskMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
@@ -64,7 +66,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType))
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString()))
                 && !methodSymbol.Name.EndsWith(_asyncSuffix))
             {
                 ReportDiagnosticResult(context, methodSymbol);
@@ -74,7 +76,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture))
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString(), StringComparison.InvariantCulture))
                 && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
             {
                 ReportDiagnosticResult(context, methodSymbol);

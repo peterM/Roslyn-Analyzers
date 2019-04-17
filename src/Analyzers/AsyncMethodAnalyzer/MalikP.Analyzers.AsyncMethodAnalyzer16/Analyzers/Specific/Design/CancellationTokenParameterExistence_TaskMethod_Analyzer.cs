@@ -38,6 +38,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class CancellationTokenParameterExistence_TaskMethod_Analyzer : AbstractDiagnosticAnalyzer
     {
+        private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
+
         protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_TaskMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
@@ -68,13 +70,13 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType)))
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString())))
 #else
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture)))
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString(), StringComparison.InvariantCulture)))
 #endif
             {
                 INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
