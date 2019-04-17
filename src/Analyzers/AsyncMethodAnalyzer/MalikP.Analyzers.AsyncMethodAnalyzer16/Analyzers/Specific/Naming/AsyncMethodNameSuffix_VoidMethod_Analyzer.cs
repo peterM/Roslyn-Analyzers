@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: MissingVoidMethodNameAsyncSuffix.cs 
+// File: AsyncMethodNameSuffix_VoidMethod_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,16 +27,15 @@
 
 using System;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class MissingVoidMethodNameAsyncSuffix : AbstractDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_VoidMethod_Analyzer : AbstractDiagnosticAnalyzer
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_VoidMethod_Rule.Rule;
 

@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: RenameMethodMissingAsyncSuffixRule.cs 
+// File: MethodMissingAsyncSuffix_VoidMethod_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers

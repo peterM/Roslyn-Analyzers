@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: MissingTaskMethodNameAsyncSuffix.cs 
+// File: CancellationTokenParameterExistence_TaskMethod_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -26,19 +26,19 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers;
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class MissingTaskMethodNameAsyncSuffix : AbstractDiagnosticAnalyzer
+    public class CancellationTokenParameterExistence_TaskMethod_Analyzer : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_TaskMethod_Rule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_TaskMethod_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 
@@ -56,31 +56,35 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer
                 return;
             }
 
-            INamedTypeSymbol returnTypeSymbol = methodSymbol?.ReturnType as INamedTypeSymbol;
+            if (!(methodSymbol?.ReturnType is INamedTypeSymbol returnTypeSymbol))
+            {
+                return;
+            }
+
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-
 #if (NETSTANDARD1_3 || NETSTANDARD1_6)
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType))
-                && !methodSymbol.Name.EndsWith(_asyncSuffix))
-            {
-                ReportDiagnosticResult(context, methodSymbol);
-            }
+                    || returnTypeSymbol.ToString().StartsWith(_taskType)))
 #else
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture))
-                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
-            {
-                ReportDiagnosticResult(context, methodSymbol);
-            }
+                    || returnTypeSymbol.ToString().StartsWith(_taskType, StringComparison.InvariantCulture)))
 #endif
+            {
+                INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
+                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
+
+                if (cancellationTokenParameter == null)
+                {
+                    ReportDiagnosticResult(context, methodSymbol);
+                }
+            }
         }
     }
 }

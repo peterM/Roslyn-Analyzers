@@ -37,12 +37,12 @@
 
   <ItemGroup>
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstractDiagnosticAnalyzer.cs" Link="Analyzers\AbstractDiagnosticAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\CancellationTokenNameAnalyzer.cs" Link="Analyzers\Specific\CancellationTokenNameAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\CancellationTokenOrderAnalyzer.cs" Link="Analyzers\Specific\CancellationTokenOrderAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\MissingCancellationTokenInTaskMethod.cs" Link="Analyzers\Specific\MissingCancellationTokenInTaskMethod.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\MissingCancellationTokenInVoidMethod.cs" Link="Analyzers\Specific\MissingCancellationTokenInVoidMethod.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\MissingTaskMethodNameAsyncSuffix.cs" Link="Analyzers\Specific\MissingTaskMethodNameAsyncSuffix.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\MissingVoidMethodNameAsyncSuffix.cs" Link="Analyzers\Specific\MissingVoidMethodNameAsyncSuffix.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_TaskMethod_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_TaskMethod_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_VoidMethod_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_VoidMethod_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterPositionAnalyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterPositionAnalyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_TaskMethod_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_TaskMethod_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_VoidMethod_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_VoidMethod_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\CancellationTokenNameAnalyzer.cs" Link="Analyzers\Specific\Naming\CancellationTokenNameAnalyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractCodefixProvider.cs" Link="CodeFixes\AbstractCodefixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractDocumentCodefixProvider.cs" Link="CodeFixes\AbstractDocumentCodefixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractSolutionCodefixProvider.cs" Link="CodeFixes\AbstractSolutionCodefixProvider.cs" />
@@ -76,7 +76,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Analyzers\Specific\" />
+    <Folder Include="Analyzers\Specific\Naming\" />
+    <Folder Include="Analyzers\Specific\Design\" />
     <Folder Include="CodeFixes\Specific\" />
     <Folder Include="Rules\Design\" />
     <Folder Include="Rules\Naming\" />

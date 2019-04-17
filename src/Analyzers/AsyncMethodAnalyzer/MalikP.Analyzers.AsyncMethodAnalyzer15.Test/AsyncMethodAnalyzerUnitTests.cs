@@ -27,6 +27,7 @@
 
 using System;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming;
 using MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;

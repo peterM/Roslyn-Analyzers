@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: RenameCancellationTokenParameterRule.cs 
+// File: WrongCancellationTokenMethodParameterNameRule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
