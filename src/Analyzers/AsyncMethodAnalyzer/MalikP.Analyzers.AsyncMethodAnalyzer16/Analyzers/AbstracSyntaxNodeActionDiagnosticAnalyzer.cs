@@ -25,6 +25,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text;
+
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -37,5 +40,11 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
         protected abstract void AnalyzeNode(SyntaxNodeAnalysisContext context);
 
         public override void Initialize(AnalysisContext context) => context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKinds);
+
+        protected void ReportDiagnosticResult(SyntaxNodeAnalysisContext context, SyntaxNode syntaxNode)
+        {
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, syntaxNode.GetLocation(), syntaxNode.GetText(Encoding.UTF8));
+            context.ReportDiagnostic(diagnostic);
+        }
     }
 }

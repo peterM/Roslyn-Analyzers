@@ -26,7 +26,7 @@
 // SOFTWARE.
 
 using System.Collections.Immutable;
-
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -46,11 +46,5 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
         protected abstract DiagnosticDescriptor DiagnosticDescriptor { get; }
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(DiagnosticDescriptor);
-
-        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
-        {
-            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name);
-            context.ReportDiagnostic(diagnostic);
-        }
     }
 }

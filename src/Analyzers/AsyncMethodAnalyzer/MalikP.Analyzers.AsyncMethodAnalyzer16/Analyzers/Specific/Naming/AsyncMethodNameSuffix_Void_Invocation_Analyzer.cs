@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AsyncMethodNameSuffix_VoidMethod_Analyzer.cs 
+// File: AsyncMethodNameSuffix_Void_Invocation_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -26,25 +26,34 @@
 // SOFTWARE.
 
 using System;
-
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_VoidMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public sealed class AsyncMethodNameSuffix_Void_Invocation_Analyzer : AbstracSyntaxNodeActionDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_VoidMethod_Rule.Rule;
+        protected override SyntaxKind[] SyntaxKinds =>
+            new[]
+            {
+                SyntaxKind.InvocationExpression
+            };
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Invocation_Rule.Rule;
 
-        protected override void AnalyzeSymbol(SymbolAnalysisContext context)
+        protected override void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
+            if (!(context.Node is InvocationExpressionSyntax invocationExpressionSyntax))
+            {
+                return;
+            }
+
+            if (!(context.SemanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol is IMethodSymbol methodSymbol))
             {
                 return;
             }
@@ -61,7 +70,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
                 && Equals(methodSymbol?.ReturnType, voidType)
                 && !methodSymbol.Name.EndsWith(_asyncSuffix))
             {
-                ReportDiagnosticResult(context, methodSymbol);
+                ReportDiagnosticResult(context, invocationExpressionSyntax);
             }
 #else
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
@@ -69,7 +78,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
                 && Equals(methodSymbol?.ReturnType, voidType)
                 && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
             {
-                ReportDiagnosticResult(context, methodSymbol);
+                ReportDiagnosticResult(context, invocationExpressionSyntax);
             }
 #endif
         }

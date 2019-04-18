@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class CancellationTokenParameterPositionAnalyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterPositionRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterPosition_Declaration_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

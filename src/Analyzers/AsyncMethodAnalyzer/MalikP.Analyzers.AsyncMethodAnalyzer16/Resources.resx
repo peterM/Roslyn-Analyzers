@@ -117,75 +117,99 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_Description" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Task_Declaration_Rule_Description" xml:space="preserve">
     <value>Method returning 'Task' or 'Task&lt;T&gt;' should have 'Async' suffix.</value>
     <comment>AANA001</comment>
   </data>
-  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Task_Declaration_Rule_MessageFormat" xml:space="preserve">
     <value>Method '{0}' missing 'Async' suffix</value>
     <comment>AANA001</comment>
   </data>
-  <data name="MethodMissingAsyncSuffix_TaskMethod_Rule_Title" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Task_Declaration_Rule_Title" xml:space="preserve">
     <value>Method returning 'Task', 'Task&lt;T&gt;' missing 'Async' suffix</value>
     <comment>AANA001</comment>
   </data>
-  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_Description" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Task_Invocation_Rule_Description" xml:space="preserve">
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' should have 'Async' suffix.</value>
+    <comment>AANA004</comment>
+  </data>
+  <data name="MethodMissingAsyncSuffix_Task_Invocation_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'Async' suffix</value>
+    <comment>AANA004</comment>
+  </data>
+  <data name="MethodMissingAsyncSuffix_Task_Invocation_Rule_Title" xml:space="preserve">
+    <value>Method returning 'Task', 'Task&lt;T&gt;' missing 'Async' suffix (Invocation)</value>
+    <comment>AANA004</comment>
+  </data>
+  <data name="MethodMissingAsyncSuffix_Void_Declaration_Rule_Description" xml:space="preserve">
     <value>Asynchronous 'void' method name should end with 'Async' suffix.</value>
     <comment>AANA002</comment>
   </data>
-  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_MessageFormat" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Void_Declaration_Rule_MessageFormat" xml:space="preserve">
     <value>Method '{0}' missing 'Async' suffix</value>
     <comment>AANA002</comment>
   </data>
-  <data name="MethodMissingAsyncSuffix_VoidMethod_Rule_Title" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Void_Declaration_Rule_Title" xml:space="preserve">
     <value>Asynchronous 'void' method missing 'Async' suffix</value>
     <comment>AANA002</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Description" xml:space="preserve">
+  <data name="MethodMissingAsyncSuffix_Void_Invocation_Rule_Description" xml:space="preserve">
+    <value>Asynchronous 'void' method name should end with 'Async' suffix.</value>
+    <comment>AANA005</comment>
+  </data>
+  <data name="MethodMissingAsyncSuffix_Void_Invocation_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'Async' suffix</value>
+    <comment>AANA005</comment>
+  </data>
+  <data name="MethodMissingAsyncSuffix_Void_Invocation_Rule_Title" xml:space="preserve">
+    <value>Asynchronous 'void' method missing 'Async' suffix (Invocation)</value>
+    <comment>AANA005</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Task_Declaration_Rule_Description" xml:space="preserve">
     <value>Method returning 'Task' or 'Task&lt;T&gt;' should contain 'CancellationToken' parameter.</value>
     <comment>AADE002</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_MessageFormat" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_Task_Declaration_Rule_MessageFormat" xml:space="preserve">
     <value>Method '{0}' missing 'CancellationToken' parameter</value>
     <comment>AADE002</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_TaskMethod_Rule_Title" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_Task_Declaration_Rule_Title" xml:space="preserve">
     <value>Method returning 'Task' or 'Task&lt;T&gt;' missing 'CancellationToken' parameter</value>
     <comment>AADE002</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_Description" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_Description" xml:space="preserve">
     <value>Asynchronous 'void' method should contain 'CancellationToken' parameter.</value>
     <comment>AADE003</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_MessageFormat" xml:space="preserve">
     <value>Asynchronous 'Task', 'Task&lt;T&gt;' method '{0}' missing 'CancellationToken' parameter</value>
     <comment>AADE003</comment>
   </data>
-  <data name="MissingCancellationTokenParameter_VoidMethod_Rule_Title" xml:space="preserve">
+  <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_Title" xml:space="preserve">
     <value>Asynchronous 'void' method missing 'CancellationToken' parameter</value>
     <comment>AADE003</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterNameRule_Description" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterName_Declaration_Rule_Description" xml:space="preserve">
     <value>Parameter 'CancellationToken' should be named 'cancellationToken'.</value>
     <comment>AANA003</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterNameRule_MessageFormat" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterName_Declaration_Rule_MessageFormat" xml:space="preserve">
     <value>CancellationToken parameter '{0}' name differs from 'cancellationToken'</value>
     <comment>AANA003</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterNameRule_Title" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterName_Declaration_Rule_Title" xml:space="preserve">
     <value>Parameter 'CancellationToken' has wrong name</value>
     <comment>AANA003</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterPositionRule_Description" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_Declaration_Description" xml:space="preserve">
     <value>Position of 'CancellationToken' parameter is wrong. Parameter 'CancellationToken' should be last method parameter.</value>
     <comment>AADE001</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterPositionRule_MessageFormat" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_Declaration_MessageFormat" xml:space="preserve">
     <value>Parameter '{0}' position is wrong</value>
     <comment>AADE001</comment>
   </data>
-  <data name="WrongCancellationTokenMethodParameterPositionRule_Title" xml:space="preserve">
+  <data name="WrongCancellationTokenMethodParameterPositionRule_Declaration_Title" xml:space="preserve">
     <value>Reorder 'CancellationToken' as last</value>
     <comment>AADE001</comment>
   </data>

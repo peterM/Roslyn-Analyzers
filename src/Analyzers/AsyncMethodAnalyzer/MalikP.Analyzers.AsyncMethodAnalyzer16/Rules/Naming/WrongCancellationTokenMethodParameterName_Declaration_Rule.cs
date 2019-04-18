@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: WrongCancellationTokenMethodParameterNameRule.cs 
+// File: WrongCancellationTokenMethodParameterName_Declaration_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -29,27 +29,27 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal sealed class WrongCancellationTokenMethodParameterNameRule : AbstractDiagnosticRuleDescriptor
+    internal sealed class WrongCancellationTokenMethodParameterName_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
         protected override string InternalDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 
-        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Title), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterName_Declaration_Rule_Title), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterName_Declaration_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterNameRule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterName_Declaration_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
 
-        static WrongCancellationTokenMethodParameterNameRule()
+        static WrongCancellationTokenMethodParameterName_Declaration_Rule()
         {
-            WrongCancellationTokenMethodParameterNameRule descriptot = new WrongCancellationTokenMethodParameterNameRule();
+            WrongCancellationTokenMethodParameterName_Declaration_Rule descriptot = new WrongCancellationTokenMethodParameterName_Declaration_Rule();
             Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
         }
 
-        private WrongCancellationTokenMethodParameterNameRule()
+        private WrongCancellationTokenMethodParameterName_Declaration_Rule()
         {
         }
 

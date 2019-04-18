@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AddMissingAsyncSuffixCodeFixProvider.cs 
+// File: AddMissingAsyncSuffix_Invocation_CodeFixProvider.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -40,8 +40,8 @@ using Microsoft.CodeAnalysis.Rename;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffixCodeFixProvider)), Shared]
-    public sealed class AddMissingAsyncSuffixCodeFixProvider : AbstractSolutionCodefixProvider<MethodDeclarationSyntax>
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffix_Invocation_CodeFixProvider)), Shared]
+    public sealed class AddMissingAsyncSuffix_Invocation_CodeFixProvider : AbstractSolutionCodefixProvider<InvocationExpressionSyntax>
     {
         private const string _suffix = "Async";
 
@@ -50,19 +50,17 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         protected override string[] DiagnosticId =>
             new[]
             {
-                MethodMissingAsyncSuffix_TaskMethod_Rule.DiagnosticId,
-                MethodMissingAsyncSuffix_VoidMethod_Rule.DiagnosticId
+                MethodMissingAsyncSuffix_Task_Invocation_Rule.DiagnosticId,
+                MethodMissingAsyncSuffix_Void_Invocation_Rule.DiagnosticId,
             };
 
-        protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
+        protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
-            SyntaxToken identifierToken = syntaxDeclaration.Identifier;
-            string newMethodName = string.Concat(identifierToken.Text, _suffix);
-
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            IMethodSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
+            IMethodSymbol typeSymbol = semanticModel.GetSymbolInfo(syntaxDeclaration, cancellationToken).Symbol as IMethodSymbol;
+            string newMethodName = string.Concat(typeSymbol.Name, _suffix);
 
             Solution originalSolution = document.Project.Solution;
             OptionSet optionSet = originalSolution.Workspace.Options;

@@ -37,5 +37,11 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
         protected abstract void AnalyzeSymbol(SymbolAnalysisContext context);
 
         public override void Initialize(AnalysisContext context) => context.RegisterSymbolAction(AnalyzeSymbol, SymbolKinds);
+
+        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
+        {
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name);
+            context.ReportDiagnostic(diagnostic);
+        }
     }
 }

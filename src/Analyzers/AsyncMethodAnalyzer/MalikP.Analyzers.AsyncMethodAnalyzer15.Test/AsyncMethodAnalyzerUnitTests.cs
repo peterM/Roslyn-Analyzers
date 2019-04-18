@@ -100,7 +100,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Test
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new AddMissingAsyncSuffixCodeFixProvider();
+            return new AddMissingAsyncSuffix_Declaration_CodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()

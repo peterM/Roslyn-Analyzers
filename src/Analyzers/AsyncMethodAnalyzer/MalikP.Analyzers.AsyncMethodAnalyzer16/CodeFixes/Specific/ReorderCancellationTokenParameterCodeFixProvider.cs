@@ -40,7 +40,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffixCodeFixProvider)), Shared]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ReorderCancellationTokenParameterCodeFixProvider)), Shared]
     public sealed class ReorderCancellationTokenParameterCodeFixProvider : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
     {
         private const string _identifierType = "CancellationToken";
@@ -50,7 +50,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         protected override string[] DiagnosticId =>
             new[]
             {
-                WrongCancellationTokenMethodParameterPositionRule.DiagnosticId
+                WrongCancellationTokenMethodParameterPosition_Declaration_Rule.DiagnosticId
             };
 
         protected override Task<Document> ChangedDocumentHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)

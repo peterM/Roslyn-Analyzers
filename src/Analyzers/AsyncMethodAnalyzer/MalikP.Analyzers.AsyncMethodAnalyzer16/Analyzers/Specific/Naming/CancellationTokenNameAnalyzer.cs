@@ -37,7 +37,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class CancellationTokenNameAnalyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterNameRule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterName_Declaration_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Parameter };
 

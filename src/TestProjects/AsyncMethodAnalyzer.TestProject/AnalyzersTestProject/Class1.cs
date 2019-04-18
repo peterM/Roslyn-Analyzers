@@ -25,7 +25,7 @@ namespace AnalyzersTestProject
             return Task.FromResult(true);
         }
 
-        public async void MAX()
+        public async Task MAX()
         {
             await Task.Delay(20);
         }
@@ -33,6 +33,16 @@ namespace AnalyzersTestProject
         public void MXX(CancellationToken ca, int a)
         {
 
+        }
+
+        public async void MXXddd(CancellationToken ca, int a)
+        {
+            await MAX();
+        }
+
+        public void VoidCall()
+        {
+            MXXddd(CancellationToken.None, 1);
         }
     }
 }

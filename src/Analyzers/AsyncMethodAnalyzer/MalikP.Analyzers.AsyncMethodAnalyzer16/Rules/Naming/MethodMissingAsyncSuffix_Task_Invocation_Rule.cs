@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: MethodMissingAsyncSuffix_TaskMethod_Rule.cs 
+// File: MethodMissingAsyncSuffix_Task_Invocation_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -29,32 +29,32 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal sealed class MethodMissingAsyncSuffix_TaskMethod_Rule : AbstractDiagnosticRuleDescriptor
+    internal sealed class MethodMissingAsyncSuffix_Task_Invocation_Rule : AbstractDiagnosticRuleDescriptor
     {
         protected override string InternalDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 
-        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_TaskMethod_Rule_Title), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Task_Invocation_Rule_Title), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_TaskMethod_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Task_Invocation_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_TaskMethod_Rule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Task_Invocation_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
 
-        static MethodMissingAsyncSuffix_TaskMethod_Rule()
+        static MethodMissingAsyncSuffix_Task_Invocation_Rule()
         {
-            MethodMissingAsyncSuffix_TaskMethod_Rule descriptot = new MethodMissingAsyncSuffix_TaskMethod_Rule();
+            MethodMissingAsyncSuffix_Task_Invocation_Rule descriptot = new MethodMissingAsyncSuffix_Task_Invocation_Rule();
             Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
         }
 
-        private MethodMissingAsyncSuffix_TaskMethod_Rule()
+        private MethodMissingAsyncSuffix_Task_Invocation_Rule()
         {
         }
 
         internal static DiagnosticDescriptor Rule { get; }
 
-        internal static string DiagnosticId => "AANA001";
+        internal static string DiagnosticId => "AANA004";
     }
 }

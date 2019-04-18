@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenParameterExistence_VoidMethod_Analyzer.cs 
+// File: AsyncMethodNameSuffix_Void_Declaration_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,19 +25,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Linq;
+using System;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_VoidMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_Void_Declaration_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_Void_Declaration_Rule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Declaration_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 
@@ -55,18 +55,23 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
                 return;
             }
 
+#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
             if (methodSymbol.IsAsync
-                && Equals(methodSymbol?.ReturnType, voidType))
+                && Equals(methodSymbol?.ReturnType, voidType)
+                && !methodSymbol.Name.EndsWith(_asyncSuffix))
             {
-                INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
-                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
-
-                if (cancellationTokenParameter == null)
-                {
-                    ReportDiagnosticResult(context, methodSymbol);
-                }
+                ReportDiagnosticResult(context, methodSymbol);
             }
+#else
+            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
+            if (methodSymbol.IsAsync
+                && Equals(methodSymbol?.ReturnType, voidType)
+                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
+            {
+                ReportDiagnosticResult(context, methodSymbol);
+            }
+#endif
         }
     }
 }

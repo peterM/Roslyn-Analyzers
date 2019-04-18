@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: RenameCancellationTokenParameterCodeFixProvider.cs 
+// File: AddMissingAsyncSuffix_Declaration_CodeFixProvider.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,12 +25,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Generic;
 using System.Composition;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
@@ -42,46 +39,35 @@ using Microsoft.CodeAnalysis.Rename;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RenameCancellationTokenParameterCodeFixProvider)), Shared]
-    public sealed class RenameCancellationTokenParameterCodeFixProvider : AbstractSolutionCodefixProvider<ParameterSyntax>
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingAsyncSuffix_Declaration_CodeFixProvider)), Shared]
+    public sealed class AddMissingAsyncSuffix_Declaration_CodeFixProvider : AbstractSolutionCodefixProvider<MethodDeclarationSyntax>
     {
-        private const string _newParameterName = "cancellationToken";
-        private const string _cancellationTokenTypeName = "System.Threading.CancellationToken";
+        private const string _suffix = "Async";
 
-        protected override string Title => "Rename to 'cancellationToken'";
+        protected override string Title => "Add missing 'Async' suffix";
 
         protected override string[] DiagnosticId =>
             new[]
             {
-                WrongCancellationTokenMethodParameterName_Declaration_Rule.DiagnosticId
+                MethodMissingAsyncSuffix_Task_Declaration_Rule.DiagnosticId,
+                MethodMissingAsyncSuffix_Void_Declaration_Rule.DiagnosticId
             };
 
-        protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, ParameterSyntax syntaxDeclaration, CancellationToken cancellationToken)
+        protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, MethodDeclarationSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
+            SyntaxToken identifierToken = syntaxDeclaration.Identifier;
+            string newMethodName = string.Concat(identifierToken.Text, _suffix);
+
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            IParameterSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
+            IMethodSymbol typeSymbol = semanticModel.GetDeclaredSymbol(syntaxDeclaration, cancellationToken);
 
             Solution originalSolution = document.Project.Solution;
             OptionSet optionSet = originalSolution.Workspace.Options;
 
-            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, _newParameterName, optionSet, cancellationToken)
+            return await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newMethodName, optionSet, cancellationToken)
                 .ConfigureAwait(false);
-        }
-
-        protected override ParameterSyntax GetSpecificSyntax(SemanticModel semanticModel, IEnumerable<ParameterSyntax> syntaxes)
-        {
-            return syntaxes.FirstOrDefault(parameterSyntaxItem => Match(semanticModel, parameterSyntaxItem));
-        }
-
-        public bool Match(SemanticModel semanticModel, ParameterSyntax parameterSyntax)
-        {
-            IParameterSymbol declaredParameterSymbol = semanticModel.GetDeclaredSymbol(parameterSyntax);
-
-            return declaredParameterSymbol == null
-                ? false
-                : declaredParameterSymbol.Type.ToString() == _cancellationTokenTypeName;
         }
     }
 }

@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: WrongCancellationTokenMethodParameterPositionRule.cs 
+// File: MethodMissingAsyncSuffix_Void_Declaration_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,34 +27,34 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal sealed class WrongCancellationTokenMethodParameterPositionRule : AbstractDiagnosticRuleDescriptor
+    internal sealed class MethodMissingAsyncSuffix_Void_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
         protected override string InternalDiagnosticId => DiagnosticId;
 
-        protected override string Category => AbstractDiagnosticRuleDescriptor.Design;
+        protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 
-        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Title), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Void_Declaration_Rule_Title), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Void_Declaration_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.WrongCancellationTokenMethodParameterPositionRule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MethodMissingAsyncSuffix_Void_Declaration_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
 
-        static WrongCancellationTokenMethodParameterPositionRule()
+        static MethodMissingAsyncSuffix_Void_Declaration_Rule()
         {
-            WrongCancellationTokenMethodParameterPositionRule descriptot = new WrongCancellationTokenMethodParameterPositionRule();
+            MethodMissingAsyncSuffix_Void_Declaration_Rule descriptot = new MethodMissingAsyncSuffix_Void_Declaration_Rule();
             Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
         }
 
-        private WrongCancellationTokenMethodParameterPositionRule()
+        private MethodMissingAsyncSuffix_Void_Declaration_Rule()
         {
         }
 
         internal static DiagnosticDescriptor Rule { get; }
 
-        internal static string DiagnosticId => "AADE001";
+        internal static string DiagnosticId => "AANA002";
     }
 }

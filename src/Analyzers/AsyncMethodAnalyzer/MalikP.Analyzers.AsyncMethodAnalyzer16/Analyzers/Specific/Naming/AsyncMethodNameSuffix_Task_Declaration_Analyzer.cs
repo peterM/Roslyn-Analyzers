@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AsyncMethodNameSuffix_TaskMethod_Analyzer.cs 
+// File: AsyncMethodNameSuffix_Task_Declaration_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -35,11 +35,11 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_TaskMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_Task_Declaration_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_TaskMethod_Rule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Task_Declaration_Rule.Rule;
 
         protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
 

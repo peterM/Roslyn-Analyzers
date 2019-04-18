@@ -39,30 +39,32 @@
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstracSymbolActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstracSymbolActionDiagnosticAnalyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstracSyntaxNodeActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstracSyntaxNodeActionDiagnosticAnalyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstractDiagnosticAnalyzer.cs" Link="Analyzers\AbstractDiagnosticAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\Asynchronous_Task_MethodInvocation.cs" Link="Analyzers\Specific\Design\Asynchronous_Task_MethodInvocation.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\Asynchronous_Void_MethodDeclaration.cs" Link="Analyzers\Specific\Design\Asynchronous_Void_MethodDeclaration.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\Asynchronous_Void_MethodInvocation.cs" Link="Analyzers\Specific\Design\Asynchronous_Void_MethodInvocation.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_TaskMethod_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_TaskMethod_Analyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_VoidMethod_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_VoidMethod_Analyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterPositionAnalyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterPositionAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_TaskMethod_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_TaskMethod_Analyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_VoidMethod_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_VoidMethod_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_Task_Declaration_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_Task_Declaration_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_Task_Invocation_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_Task_Invocation_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_Void_Declaration_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_Void_Declaration_Analyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\AsyncMethodNameSuffix_Void_Invocation_Analyzer.cs" Link="Analyzers\Specific\Naming\AsyncMethodNameSuffix_Void_Invocation_Analyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Naming\CancellationTokenNameAnalyzer.cs" Link="Analyzers\Specific\Naming\CancellationTokenNameAnalyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractCodefixProvider.cs" Link="CodeFixes\AbstractCodefixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractDocumentCodefixProvider.cs" Link="CodeFixes\AbstractDocumentCodefixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\AbstractSolutionCodefixProvider.cs" Link="CodeFixes\AbstractSolutionCodefixProvider.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\AddMissingAsyncSuffixCodeFixProvider.cs" Link="CodeFixes\Specific\AddMissingAsyncSuffixCodeFixProvider.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\AddMissingAsyncSuffix_Declaration_CodeFixProvider.cs" Link="CodeFixes\Specific\AddMissingAsyncSuffix_Declaration_CodeFixProvider.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\AddMissingAsyncSuffix_Invocation_CodeFixProvider.cs" Link="CodeFixes\Specific\AddMissingAsyncSuffix_Invocation_CodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\AddMissingCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\AddMissingCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Resources.Designer.cs" Link="Resources.Designer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\AbstractDiagnosticRuleDescriptor.cs" Link="Rules\AbstractDiagnosticRuleDescriptor.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_TaskMethod_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_TaskMethod_Rule.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_VoidMethod_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_VoidMethod_Rule.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\WrongCancellationTokenMethodParameterPositionRule.cs" Link="Rules\Design\WrongCancellationTokenMethodParameterPositionRule.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_TaskMethod_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_TaskMethod_Rule.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_VoidMethod_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_VoidMethod_Rule.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\WrongCancellationTokenMethodParameterNameRule.cs" Link="Rules\Naming\WrongCancellationTokenMethodParameterNameRule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_Task_Declaration_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_Task_Declaration_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\MissingCancellationTokenParameter_Void_Declaration_Rule.cs" Link="Rules\Design\MissingCancellationTokenParameter_Void_Declaration_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\WrongCancellationTokenMethodParameterPosition_Declaration_Rule.cs" Link="Rules\Design\WrongCancellationTokenMethodParameterPosition_Declaration_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_Task_Declaration_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_Task_Declaration_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_Task_Invocation_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_Task_Invocation_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_Void_Declaration_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_Void_Declaration_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\MethodMissingAsyncSuffix_Void_Invocation_Rule.cs" Link="Rules\Naming\MethodMissingAsyncSuffix_Void_Invocation_Rule.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Naming\WrongCancellationTokenMethodParameterName_Declaration_Rule.cs" Link="Rules\Naming\WrongCancellationTokenMethodParameterName_Declaration_Rule.cs" />
   </ItemGroup>
 
   <ItemGroup>

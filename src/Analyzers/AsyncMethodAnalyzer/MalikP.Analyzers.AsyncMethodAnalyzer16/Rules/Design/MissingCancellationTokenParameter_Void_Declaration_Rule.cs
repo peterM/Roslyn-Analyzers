@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: MissingCancellationTokenParameter_VoidMethod_Rule.cs 
+// File: MissingCancellationTokenParameter_Void_Declaration_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -29,25 +29,25 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal sealed class MissingCancellationTokenParameter_VoidMethod_Rule : AbstractDiagnosticRuleDescriptor
+    internal sealed class MissingCancellationTokenParameter_Void_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
         protected override string InternalDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Design;
 
-        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_VoidMethod_Rule_Title), Resources.ResourceManager, typeof(Resources));
-        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_VoidMethod_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
-        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_VoidMethod_Rule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Void_Declaration_Rule_Title), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Void_Declaration_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Void_Declaration_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
 
-        static MissingCancellationTokenParameter_VoidMethod_Rule()
+        static MissingCancellationTokenParameter_Void_Declaration_Rule()
         {
-            MissingCancellationTokenParameter_VoidMethod_Rule descriptot = new MissingCancellationTokenParameter_VoidMethod_Rule();
+            MissingCancellationTokenParameter_Void_Declaration_Rule descriptot = new MissingCancellationTokenParameter_Void_Declaration_Rule();
             Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
         }
 
-        private MissingCancellationTokenParameter_VoidMethod_Rule()
+        private MissingCancellationTokenParameter_Void_Declaration_Rule()
         {
         }
 

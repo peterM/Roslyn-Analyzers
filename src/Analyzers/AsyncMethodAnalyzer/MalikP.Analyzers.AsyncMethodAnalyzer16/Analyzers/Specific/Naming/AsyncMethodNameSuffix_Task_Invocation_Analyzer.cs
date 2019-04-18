@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenParameterExistence_TaskMethod_Analyzer.cs 
+// File: AsyncMethodNameSuffix_Task_Invocation_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -26,28 +26,37 @@
 // SOFTWARE.
 
 using System;
-using System.Linq;
 
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_TaskMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public sealed class AsyncMethodNameSuffix_Task_Invocation_Analyzer : AbstracSyntaxNodeActionDiagnosticAnalyzer
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_Task_Declaration_Rule.Rule;
+        protected override SyntaxKind[] SyntaxKinds =>
+            new[]
+            {
+                SyntaxKind.InvocationExpression
+            };
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
+        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Task_Invocation_Rule.Rule;
 
-        protected override void AnalyzeSymbol(SymbolAnalysisContext context)
+        protected override void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
+            if (!(context.Node is InvocationExpressionSyntax invocationExpressionSyntax))
+            {
+                return;
+            }
+
+            if (!(context.SemanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol is IMethodSymbol methodSymbol))
             {
                 return;
             }
@@ -58,35 +67,31 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
                 return;
             }
 
-            if (!(methodSymbol?.ReturnType is INamedTypeSymbol returnTypeSymbol))
-            {
-                return;
-            }
-
+            INamedTypeSymbol returnTypeSymbol = methodSymbol?.ReturnType as INamedTypeSymbol;
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
+
 #if (NETSTANDARD1_3 || NETSTANDARD1_6)
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString())))
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString()))
+                && !methodSymbol.Name.EndsWith(_asyncSuffix))
+            {
+                ReportDiagnosticResult(context, invocationExpressionSyntax);
+            }
 #else
             if (!Equals(returnTypeSymbol, voidType)
                 && returnTypeSymbol != null
                 && (methodSymbol.IsAsync
                     || Equals(returnTypeSymbol, taskType)
-                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString(), StringComparison.InvariantCulture)))
-#endif
+                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString(), StringComparison.InvariantCulture))
+                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
             {
-                INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
-                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
-
-                if (cancellationTokenParameter == null)
-                {
-                    ReportDiagnosticResult(context, methodSymbol);
-                }
+                ReportDiagnosticResult(context, invocationExpressionSyntax);
             }
+#endif
         }
     }
 }
