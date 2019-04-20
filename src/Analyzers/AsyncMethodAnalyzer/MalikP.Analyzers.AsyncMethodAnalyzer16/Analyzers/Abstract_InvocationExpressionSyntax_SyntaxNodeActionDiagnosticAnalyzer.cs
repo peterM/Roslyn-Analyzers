@@ -25,12 +25,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Linq;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Diagnostics;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Common;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
@@ -51,12 +51,6 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
             }
 
             if (!(context.SemanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol is IMethodSymbol methodSymbol))
-            {
-                return result;
-            }
-
-            if (methodSymbol.MethodKind == MethodKind.PropertyGet
-               || methodSymbol.MethodKind == MethodKind.Constructor)
             {
                 return result;
             }

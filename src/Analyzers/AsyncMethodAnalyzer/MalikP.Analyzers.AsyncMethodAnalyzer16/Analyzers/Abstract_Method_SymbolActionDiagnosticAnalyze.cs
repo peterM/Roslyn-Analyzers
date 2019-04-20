@@ -25,8 +25,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Linq;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Common;
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -46,12 +46,6 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 
             IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
             if (methodSymbol == null)
-            {
-                return result;
-            }
-
-            if (methodSymbol.MethodKind == MethodKind.PropertyGet
-                || methodSymbol.MethodKind == MethodKind.Constructor)
             {
                 return result;
             }

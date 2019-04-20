@@ -61,7 +61,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
         {
             SyntaxNode root = await GetRootAsync(document, cancellationToken).ConfigureAwait(false);
 
-            MethodDeclarationSyntax parentMethodSyntax = GetSyntaxes<MethodDeclarationSyntax>(root, syntaxDeclaration.Span)
+            BaseMethodDeclarationSyntax parentMethodSyntax = GetSyntaxes<BaseMethodDeclarationSyntax>(root, syntaxDeclaration.Span)
                 .FirstOrDefault();
 
             if (parentMethodSyntax == null)
