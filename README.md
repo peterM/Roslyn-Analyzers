@@ -6,9 +6,7 @@
 
 
 
-### Analyzers 
-
-<br />
+### Diagnostic analyzers and code fix providers
 
 __Support diagnostics (declaration):__
 - Analyze if method has `Async` suffix
@@ -16,11 +14,15 @@ __Support diagnostics (declaration):__
 - Analyze if method's `CancellationToken` has name `cancellationToken`
 - Analyze if `CancellationToken` is last parameter in method
 
+<br />
+
 __Contains CodeFixes (declaration):__
 - Rename method name without `Async` suffix
 - Add missing `CancellationToken cancellationToken` parameter
 - Rename `CancellationToken` parameter to `cancellationToken` when name is not matched
 - Reorder method parameters and put `CancellationToken` as last parameter
+
+<br />
 
 __Support diagnostics (invocation):__
 - Analyze if `invoked` method has `Async` suffix
@@ -28,30 +30,37 @@ __Support diagnostics (invocation):__
   - checks if `CancellationToken` parameter is present in scope where asynchronous method is `invoked` and add possibility to use it
   - add possibility to enhance declaration and use `CancellationToken.None`
 
+<br />
+
 __Contains CodeFixes (invocation):__
 - Rename method name without `Async` suffix
 - Add missing `CancellationToken cancellationToken` parameter
   - Add cancellation token to declaration and invocation (`CancellationToken.None`)
   - Add cancellation token to declaration and invocation (reuse `cancellationToken` from method scope where is invoked)
+  
+<br />
 
+#### Analyzed methods
 
-##### Analyzed methods
-
-Declaration:
+__*Declaration:*__
 - `async void` method declarations
 - `Task` method declarations
 - `async Task` method declarations
 - `Task<T>` method declarations
 - `async Task<T>` method declarations
 
-Invocation: 
+<br />
+
+__*Invocation:*__
 - `async void` method invocations
 - `Task` method invocations
 - `async Task` method invocations
 - `Task<T>` method invocations
 - `async Task<T>` method invocations
 
-##### Examples `Declaration` vs. `Invocation`
+<br />
+
+#### Examples `Declaration` vs. `Invocation`
 
 _Example Declaration:_
 
@@ -60,6 +69,8 @@ public Task MyMethod() // => Declaration analyzers analyzers will rise diagnosti
 {
 }
 ```
+
+<br />
 
 _Example Invocation:_
 
