@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AsyncMethodNameSuffix_Void_Invocation_Analyzer.cs 
+// File: AbstractSymbolActionDiagnosticAnalyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,35 +25,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
-
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class AsyncMethodNameSuffix_Void_Invocation_Analyzer : Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer
+    public abstract class AbstractSymbolActionDiagnosticAnalyzer : AbstractDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Invocation_Rule.Rule;
+        protected abstract SymbolKind[] SymbolKinds { get; }
 
-        protected override void AnalyzeNode(SyntaxNodeAnalysisContext context)
+        protected abstract void AnalyzeSymbol(SymbolAnalysisContext context);
+
+        public override void Initialize(AnalysisContext context) => context.RegisterSymbolAction(AnalyzeSymbol, SymbolKinds);
+
+        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
         {
-            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
-            if (!result.CanContinue)
-            {
-                return;
-            }
-
-            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-            if (result.MethodSymbol.IsAsync
-                && Equals(result.MethodSymbol?.ReturnType, voidType)
-                && !result.MethodSymbol.Name.EndsWith(_asyncSuffix))
-            {
-                ReportDiagnosticResult(context, context.Node);
-            }
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name.TrimStart().TrimEnd());
+            context.ReportDiagnostic(diagnostic);
         }
     }
 }

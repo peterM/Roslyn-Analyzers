@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AddMissingCancellationTokenParameter_Declaration_CodeFixProvider.cs 
+// File: AddMissingCancellationTokenParameter_Invocation_CodeFixProvider.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -89,7 +89,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
             SyntaxReference declaringSyntax = symbol.DeclaringSyntaxReferences.FirstOrDefault();
 
-            MethodDeclarationSyntax methodSyntax = declaringSyntax.GetSyntax(cancellationToken) as MethodDeclarationSyntax;
+            MethodDeclarationSyntax methodSyntax = declaringSyntax?.GetSyntax(cancellationToken) as MethodDeclarationSyntax;
 
             SyntaxToken identifier = SyntaxFactory.Identifier(_identifierName);
             TypeSyntax typeName = SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName);

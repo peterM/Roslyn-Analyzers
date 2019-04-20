@@ -36,21 +36,19 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterPositionAnalyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class CancellationTokenParameterPositionAnalyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterPosition_Declaration_Rule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
-
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol.ReturnType == null)
+            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
+            if (!result.CanContinue)
             {
                 return;
             }
 
-            List<IParameterSymbol> parameters = methodSymbol.Parameters.ToList();
+            List<IParameterSymbol> parameters = result.MethodSymbol.Parameters.ToList();
             if (parameters.Count <= 1)
             {
                 return;

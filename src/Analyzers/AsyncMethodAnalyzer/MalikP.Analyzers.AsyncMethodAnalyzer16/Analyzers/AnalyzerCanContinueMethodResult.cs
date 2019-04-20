@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AsyncMethodNameSuffix_Void_Invocation_Analyzer.cs 
+// File: AnalyzerCanContinueMethodResult.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,35 +25,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
-using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
-
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public sealed class AsyncMethodNameSuffix_Void_Invocation_Analyzer : Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer
+    public sealed class AnalyzerCanContinueMethodResult
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Invocation_Rule.Rule;
-
-        protected override void AnalyzeNode(SyntaxNodeAnalysisContext context)
+        public AnalyzerCanContinueMethodResult(IMethodSymbol methodSymbol, INamedTypeSymbol returnTypeSymbol, bool canContinue)
         {
-            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
-            if (!result.CanContinue)
-            {
-                return;
-            }
+            CanContinue = canContinue;
+            ReturnTypeSymbol = returnTypeSymbol;
+            MethodSymbol = methodSymbol;
+        }
 
-            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-            if (result.MethodSymbol.IsAsync
-                && Equals(result.MethodSymbol?.ReturnType, voidType)
-                && !result.MethodSymbol.Name.EndsWith(_asyncSuffix))
-            {
-                ReportDiagnosticResult(context, context.Node);
-            }
+        public IMethodSymbol MethodSymbol { get; }
+
+        public INamedTypeSymbol ReturnTypeSymbol { get; }
+
+        public bool CanContinue { get; }
+
+        public static AnalyzerCanContinueMethodResult Default()
+        {
+            return new AnalyzerCanContinueMethodResult(null, null, false);
         }
     }
 }

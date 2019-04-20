@@ -35,36 +35,28 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_Void_Declaration_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class CancellationTokenParameterExistence_Void_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_Void_Declaration_Rule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
-
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
-            {
-                return;
-            }
-
-            if (methodSymbol.MethodKind == MethodKind.PropertyGet
-                || methodSymbol.MethodKind == MethodKind.Constructor)
+            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
+            if (!result.CanContinue)
             {
                 return;
             }
 
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-            if (methodSymbol.IsAsync
-                && Equals(methodSymbol?.ReturnType, voidType))
+            if (result.MethodSymbol.IsAsync
+                && Equals(result.MethodSymbol?.ReturnType, voidType))
             {
                 INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
-                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
+                IParameterSymbol cancellationTokenParameter = result.MethodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
 
                 if (cancellationTokenParameter == null)
                 {
-                    ReportDiagnosticResult(context, methodSymbol);
+                    ReportDiagnosticResult(context, context.Symbol);
                 }
             }
         }

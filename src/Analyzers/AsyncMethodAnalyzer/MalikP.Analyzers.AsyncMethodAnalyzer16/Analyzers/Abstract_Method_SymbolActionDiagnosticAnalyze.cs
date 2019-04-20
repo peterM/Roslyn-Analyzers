@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AbstracSymbolActionDiagnosticAnalyzer.cs 
+// File: Abstract_Method_SymbolActionDiagnosticAnalyze.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -25,23 +25,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    public abstract class AbstracSymbolActionDiagnosticAnalyzer : AbstractDiagnosticAnalyzer
+    public abstract class Abstract_Method_SymbolActionDiagnosticAnalyze : AbstractSymbolActionDiagnosticAnalyzer
     {
-        protected abstract SymbolKind[] SymbolKinds { get; }
+        protected override SymbolKind[] SymbolKinds =>
+            new[]
+            {
+                SymbolKind.Method
+            };
 
-        protected abstract void AnalyzeSymbol(SymbolAnalysisContext context);
-
-        public override void Initialize(AnalysisContext context) => context.RegisterSymbolAction(AnalyzeSymbol, SymbolKinds);
-
-        protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
+        protected AnalyzerCanContinueMethodResult GetContinuationResult(SymbolAnalysisContext context)
         {
-            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name.TrimStart().TrimEnd());
-            context.ReportDiagnostic(diagnostic);
+            var result = AnalyzerCanContinueMethodResult.Default();
+
+            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
+            if (methodSymbol == null)
+            {
+                return result;
+            }
+
+            if (methodSymbol.MethodKind == MethodKind.PropertyGet
+                || methodSymbol.MethodKind == MethodKind.Constructor)
+            {
+                return result;
+            }
+
+            SyntaxReference syntaxReference = methodSymbol
+               .DeclaringSyntaxReferences
+               .FirstOrDefault();
+
+            if (syntaxReference == null)
+            {
+                return result;
+            }
+
+            if (!(methodSymbol?.ReturnType is INamedTypeSymbol returnTypeSymbol))
+            {
+                return result;
+            }
+
+            return new AnalyzerCanContinueMethodResult(methodSymbol, returnTypeSymbol, true);
         }
     }
 }

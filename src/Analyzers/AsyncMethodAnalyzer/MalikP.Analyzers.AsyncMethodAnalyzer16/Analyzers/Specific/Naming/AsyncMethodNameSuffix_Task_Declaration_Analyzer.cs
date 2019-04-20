@@ -35,53 +35,32 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_Task_Declaration_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_Task_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Task_Declaration_Rule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
-
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
+            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
+            if (!result.CanContinue)
             {
                 return;
             }
 
-            if (methodSymbol.MethodKind == MethodKind.PropertyGet
-                || methodSymbol.MethodKind == MethodKind.Constructor)
-            {
-                return;
-            }
-
-            INamedTypeSymbol returnTypeSymbol = methodSymbol?.ReturnType as INamedTypeSymbol;
             INamedTypeSymbol taskType = context.Compilation.GetTypeByMetadataName(_taskType);
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
 
-#if (NETSTANDARD1_3 || NETSTANDARD1_6)
-            if (!Equals(returnTypeSymbol, voidType)
-                && returnTypeSymbol != null
-                && (methodSymbol.IsAsync
-                    || Equals(returnTypeSymbol, taskType)
-                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString()))
-                && !methodSymbol.Name.EndsWith(_asyncSuffix))
+            if (!Equals(result.ReturnTypeSymbol, voidType)
+                && result.ReturnTypeSymbol != null
+                && (result.MethodSymbol.IsAsync
+                    || Equals(result.ReturnTypeSymbol, taskType)
+                    || string.Equals(_genericTaskType, result.ReturnTypeSymbol.ConstructedFrom.ToString()))
+                && !result.MethodSymbol.Name.EndsWith(_asyncSuffix))
             {
-                ReportDiagnosticResult(context, methodSymbol);
+                ReportDiagnosticResult(context, context.Symbol);
             }
-#else
-            if (!Equals(returnTypeSymbol, voidType)
-                && returnTypeSymbol != null
-                && (methodSymbol.IsAsync
-                    || Equals(returnTypeSymbol, taskType)
-                    || string.Equals(_genericTaskType, returnTypeSymbol.ConstructedFrom.ToString(), StringComparison.InvariantCulture))
-                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
-            {
-                ReportDiagnosticResult(context, methodSymbol);
-            }
-#endif
         }
     }
 }

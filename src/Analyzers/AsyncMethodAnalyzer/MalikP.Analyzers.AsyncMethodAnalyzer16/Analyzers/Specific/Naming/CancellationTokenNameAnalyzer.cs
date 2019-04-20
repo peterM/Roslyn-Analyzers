@@ -35,7 +35,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenNameAnalyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class CancellationTokenNameAnalyzer : AbstractSymbolActionDiagnosticAnalyzer
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterName_Declaration_Rule.Rule;
 
@@ -46,21 +46,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
             IParameterSymbol cancellationTokenParameter = (IParameterSymbol)context.Symbol;
             INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
 
-#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             if (cancellationTokenParameter != null
                && Equals(cancellationToken, cancellationTokenParameter.Type)
                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName))
             {
                 ReportDiagnosticResult(context, cancellationTokenParameter);
             }
-#else
-            if (cancellationTokenParameter != null
-                && Equals(cancellationToken, cancellationTokenParameter.Type)
-                && !string.Equals(cancellationTokenParameter.Name, _expectedParameterName, StringComparison.InvariantCulture))
-            {
-                ReportDiagnosticResult(context, cancellationTokenParameter);
-            }
-#endif
         }
     }
 }

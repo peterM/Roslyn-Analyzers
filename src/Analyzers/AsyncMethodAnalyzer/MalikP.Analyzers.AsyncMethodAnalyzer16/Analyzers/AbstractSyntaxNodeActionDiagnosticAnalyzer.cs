@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AbstracSyntaxNodeActionDiagnosticAnalyzer.cs 
+// File: AbstractSyntaxNodeActionDiagnosticAnalyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -33,7 +33,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
-    public abstract class AbstracSyntaxNodeActionDiagnosticAnalyzer : AbstractDiagnosticAnalyzer
+    public abstract class AbstractSyntaxNodeActionDiagnosticAnalyzer : AbstractDiagnosticAnalyzer
     {
         protected abstract SyntaxKind[] SyntaxKinds { get; }
 

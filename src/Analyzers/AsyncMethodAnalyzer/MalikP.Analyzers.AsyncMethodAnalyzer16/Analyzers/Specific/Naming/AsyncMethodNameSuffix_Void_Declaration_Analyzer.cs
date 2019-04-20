@@ -35,43 +35,25 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_Void_Declaration_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class AsyncMethodNameSuffix_Void_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Declaration_Rule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
-
         protected override void AnalyzeSymbol(SymbolAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
+            AnalyzerCanContinueMethodResult result = GetContinuationResult(context);
+            if (!result.CanContinue)
             {
                 return;
             }
 
-            if (methodSymbol.MethodKind == MethodKind.PropertyGet
-                || methodSymbol.MethodKind == MethodKind.Constructor)
-            {
-                return;
-            }
-
-#if (NETSTANDARD1_3 || NETSTANDARD1_6)
             INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-            if (methodSymbol.IsAsync
-                && Equals(methodSymbol?.ReturnType, voidType)
-                && !methodSymbol.Name.EndsWith(_asyncSuffix))
+            if (result.MethodSymbol.IsAsync
+                && Equals(result.MethodSymbol?.ReturnType, voidType)
+                && !result.MethodSymbol.Name.EndsWith(_asyncSuffix))
             {
-                ReportDiagnosticResult(context, methodSymbol);
+                ReportDiagnosticResult(context, context.Symbol);
             }
-#else
-            INamedTypeSymbol voidType = context.Compilation.GetSpecialType(SpecialType.System_Void);
-            if (methodSymbol.IsAsync
-                && Equals(methodSymbol?.ReturnType, voidType)
-                && !methodSymbol.Name.EndsWith(_asyncSuffix, StringComparison.InvariantCulture))
-            {
-                ReportDiagnosticResult(context, methodSymbol);
-            }
-#endif
         }
     }
 }

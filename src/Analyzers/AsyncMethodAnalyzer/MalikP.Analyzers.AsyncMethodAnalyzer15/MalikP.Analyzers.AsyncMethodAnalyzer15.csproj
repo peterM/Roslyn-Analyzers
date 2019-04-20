@@ -36,9 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstracSymbolActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstracSymbolActionDiagnosticAnalyzer.cs" />
-    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstracSyntaxNodeActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstracSyntaxNodeActionDiagnosticAnalyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstractDiagnosticAnalyzer.cs" Link="Analyzers\AbstractDiagnosticAnalyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstractSymbolActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstractSymbolActionDiagnosticAnalyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AbstractSyntaxNodeActionDiagnosticAnalyzer.cs" Link="Analyzers\AbstractSyntaxNodeActionDiagnosticAnalyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer.cs" Link="Analyzers\Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Abstract_Method_SymbolActionDiagnosticAnalyze.cs" Link="Analyzers\Abstract_Method_SymbolActionDiagnosticAnalyze.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\AnalyzerCanContinueMethodResult.cs" Link="Analyzers\AnalyzerCanContinueMethodResult.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_Task_Declaration_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_Task_Declaration_Analyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_Task_Invocation_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_Task_Invocation_Analyzer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Analyzers\Specific\Design\CancellationTokenParameterExistence_Void_Declaration_Analyzer.cs" Link="Analyzers\Specific\Design\CancellationTokenParameterExistence_Void_Declaration_Analyzer.cs" />
