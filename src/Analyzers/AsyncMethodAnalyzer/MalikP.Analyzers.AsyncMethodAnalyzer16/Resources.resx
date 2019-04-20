@@ -126,7 +126,7 @@
     <comment>AADE006</comment>
   </data>
   <data name="CancellationTokenParameterReusePossibility_Task_Invocation_Analyzer_Title" xml:space="preserve">
-    <value>Add and use scoped 'CancellationToken'</value>
+    <value>Add and use scoped 'CancellationToken' in 'Task', 'Task&lt;T&gt;' methods (Invocation)</value>
     <comment>AADE006</comment>
   </data>
   <data name="CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer_Description" xml:space="preserve">
@@ -138,7 +138,7 @@
     <comment>AADE007</comment>
   </data>
   <data name="CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer_Title" xml:space="preserve">
-    <value>Add and use scoped 'CancellationToken'</value>
+    <value>Add and use scoped 'CancellationToken' in 'async void' methods (Invocation)</value>
     <comment>AADE007</comment>
   </data>
   <data name="MethodMissingAsyncSuffix_Task_Declaration_Rule_Description" xml:space="preserve">
