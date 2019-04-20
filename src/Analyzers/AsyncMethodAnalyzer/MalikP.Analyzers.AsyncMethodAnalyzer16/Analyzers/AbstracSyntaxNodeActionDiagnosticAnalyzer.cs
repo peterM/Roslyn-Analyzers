@@ -43,7 +43,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 
         protected void ReportDiagnosticResult(SyntaxNodeAnalysisContext context, SyntaxNode syntaxNode)
         {
-            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, syntaxNode.GetLocation(), syntaxNode.GetText(Encoding.UTF8));
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, syntaxNode.GetLocation(), syntaxNode.GetText(Encoding.UTF8).ToString().TrimStart().TrimEnd());
             context.ReportDiagnostic(diagnostic);
         }
     }

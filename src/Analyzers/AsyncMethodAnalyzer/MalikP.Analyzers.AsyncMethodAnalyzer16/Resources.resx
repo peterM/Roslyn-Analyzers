@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CancellationTokenParameterReusePossibility_Task_Invocation_Analyzer_Description" xml:space="preserve">
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' should contain 'CancellationToken' parameter. Here is possibility to add 'CancellationToken' from scope.</value>
+    <comment>AADE006</comment>
+  </data>
+  <data name="CancellationTokenParameterReusePossibility_Task_Invocation_Analyzer_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'CancellationToken' parameter. Add and use from scope</value>
+    <comment>AADE006</comment>
+  </data>
+  <data name="CancellationTokenParameterReusePossibility_Task_Invocation_Analyzer_Title" xml:space="preserve">
+    <value>Add and use scoped 'CancellationToken'</value>
+    <comment>AADE006</comment>
+  </data>
+  <data name="CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer_Description" xml:space="preserve">
+    <value>Asynchronous 'void' method '{0}' missing 'CancellationToken' parameter. Here is possibility to add 'CancellationToken' from scope.</value>
+    <comment>AADE007</comment>
+  </data>
+  <data name="CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'CancellationToken' parameter. Add and use from scope</value>
+    <comment>AADE007</comment>
+  </data>
+  <data name="CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer_Title" xml:space="preserve">
+    <value>Add and use scoped 'CancellationToken'</value>
+    <comment>AADE007</comment>
+  </data>
   <data name="MethodMissingAsyncSuffix_Task_Declaration_Rule_Description" xml:space="preserve">
     <value>Method returning 'Task' or 'Task&lt;T&gt;' should have 'Async' suffix.</value>
     <comment>AANA001</comment>
@@ -177,17 +201,41 @@
     <value>Method returning 'Task' or 'Task&lt;T&gt;' missing 'CancellationToken' parameter</value>
     <comment>AADE002</comment>
   </data>
+  <data name="MissingCancellationTokenParameter_Task_Invocation_Rule_Description" xml:space="preserve">
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' should contain 'CancellationToken' parameter.</value>
+    <comment>AADE004</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Task_Invocation_Rule_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' missing 'CancellationToken' parameter</value>
+    <comment>AADE004</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Task_Invocation_Rule_Title" xml:space="preserve">
+    <value>Method returning 'Task' or 'Task&lt;T&gt;' missing 'CancellationToken' parameter (Invocation)</value>
+    <comment>AADE004</comment>
+  </data>
   <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_Description" xml:space="preserve">
     <value>Asynchronous 'void' method should contain 'CancellationToken' parameter.</value>
     <comment>AADE003</comment>
   </data>
   <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_MessageFormat" xml:space="preserve">
-    <value>Asynchronous 'Task', 'Task&lt;T&gt;' method '{0}' missing 'CancellationToken' parameter</value>
+    <value>Asynchronous 'void' method '{0}' missing 'CancellationToken' parameter</value>
     <comment>AADE003</comment>
   </data>
   <data name="MissingCancellationTokenParameter_Void_Declaration_Rule_Title" xml:space="preserve">
     <value>Asynchronous 'void' method missing 'CancellationToken' parameter</value>
     <comment>AADE003</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Void_Invocation_Rule_Description" xml:space="preserve">
+    <value>Asynchronous 'void' method should contain 'CancellationToken' parameter.</value>
+    <comment>AADE005</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Void_Invocation_Rule_MessageFormat" xml:space="preserve">
+    <value>Asynchronous 'void' method '{0}' missing 'CancellationToken' parameter</value>
+    <comment>AADE005</comment>
+  </data>
+  <data name="MissingCancellationTokenParameter_Void_Invocation_Rule_Title" xml:space="preserve">
+    <value>Asynchronous 'void' method missing 'CancellationToken' parameter (Invocation)</value>
+    <comment>AADE005</comment>
   </data>
   <data name="WrongCancellationTokenMethodParameterName_Declaration_Rule_Description" xml:space="preserve">
     <value>Parameter 'CancellationToken' should be named 'cancellationToken'.</value>

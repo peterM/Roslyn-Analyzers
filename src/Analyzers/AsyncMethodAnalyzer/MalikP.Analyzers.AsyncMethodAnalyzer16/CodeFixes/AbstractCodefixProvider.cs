@@ -68,9 +68,19 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            SyntaxNode root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
+            SyntaxNode root = await GetRootAsync(context).ConfigureAwait(false);
 
             await RegisterCodeFixAsync(context, root, DiagnosticId);
+        }
+
+        protected async Task<SyntaxNode> GetRootAsync(Document document, CancellationToken cancellationToken)
+        {
+            return await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        protected async Task<SyntaxNode> GetRootAsync(CodeFixContext context)
+        {
+            return await GetRootAsync(context.Document, context.CancellationToken).ConfigureAwait(false);
         }
 
         private TextSpan GetDiagnosticSpan(Diagnostic diagnostic)
@@ -78,7 +88,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes
             return diagnostic.Location.SourceSpan;
         }
 
-        private IEnumerable<TSyntax> GetSyntaxes<TSyntax>(SyntaxNode root, TextSpan diagnosticSpan)
+        protected IEnumerable<TSyntax> GetSyntaxes<TSyntax>(SyntaxNode root, TextSpan diagnosticSpan)
             where TSyntax : CSharpSyntaxNode
         {
             return root.FindToken(diagnosticSpan.Start)

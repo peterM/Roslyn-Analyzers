@@ -40,7 +40,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 
         protected void ReportDiagnosticResult(SymbolAnalysisContext context, ISymbol symbol)
         {
-            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name);
+            Diagnostic diagnostic = Diagnostic.Create(DiagnosticDescriptor, symbol.Locations[0], symbol.Name.TrimStart().TrimEnd());
             context.ReportDiagnostic(diagnostic);
         }
     }

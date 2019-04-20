@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: AddMissingCancellationTokenParameterCodeFixProvider.cs 
+// File: AddMissingCancellationTokenParameter_Declaration_CodeFixProvider.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -40,8 +40,8 @@ using Microsoft.CodeAnalysis.Simplification;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingCancellationTokenParameterCodeFixProvider)), Shared]
-    public sealed class AddMissingCancellationTokenParameterCodeFixProvider : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingCancellationTokenParameter_Declaration_CodeFixProvider)), Shared]
+    public sealed class AddMissingCancellationTokenParameter_Declaration_CodeFixProvider : AbstractDocumentCodefixProvider<MethodDeclarationSyntax>
     {
         private const string _identifierName = "cancellationToken";
 

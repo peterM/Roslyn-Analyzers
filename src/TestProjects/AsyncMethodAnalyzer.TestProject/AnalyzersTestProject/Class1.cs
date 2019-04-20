@@ -37,7 +37,10 @@ namespace AnalyzersTestProject
 
         public async void MXXddd(CancellationToken ca, int a)
         {
-            await MAX();
+            Class2 class2 = new Class2();
+            await class2.M1(System.Threading.CancellationToken.None);
+            class2.M2();
+            await class2.M3();
         }
 
         public void VoidCall()

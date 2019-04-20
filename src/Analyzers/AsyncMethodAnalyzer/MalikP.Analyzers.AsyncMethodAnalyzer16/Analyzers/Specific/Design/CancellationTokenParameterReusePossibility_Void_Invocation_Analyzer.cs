@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: CancellationTokenParameterExistence_VoidMethod_Analyzer.cs 
+// File: CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -30,21 +30,27 @@ using System.Linq;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_VoidMethod_Analyzer : AbstracSymbolActionDiagnosticAnalyzer
+    public class CancellationTokenParameterReusePossibility_Void_Invocation_Analyzer : AbstracSyntaxNodeActionDiagnosticAnalyzer
     {
-        protected override DiagnosticDescriptor DiagnosticDescriptor => MissingCancellationTokenParameter_Void_Declaration_Rule.Rule;
+        protected override DiagnosticDescriptor DiagnosticDescriptor => CancellationTokenParameterReusePossibility_Void_Invocation_Rule.Rule;
 
-        protected override SymbolKind[] SymbolKinds => new[] { SymbolKind.Method };
+        protected override SyntaxKind[] SyntaxKinds => new[] { SyntaxKind.InvocationExpression };
 
-        protected override void AnalyzeSymbol(SymbolAnalysisContext context)
+        protected override void AnalyzeNode(SyntaxNodeAnalysisContext context)
         {
-            IMethodSymbol methodSymbol = (IMethodSymbol)context.Symbol;
-            if (methodSymbol == null)
+            if (!(context.Node is InvocationExpressionSyntax invocationExpressionSyntax))
+            {
+                return;
+            }
+
+            if (!(context.SemanticModel.GetSymbolInfo(invocationExpressionSyntax).Symbol is IMethodSymbol methodSymbol))
             {
                 return;
             }
@@ -60,11 +66,31 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
                 && Equals(methodSymbol?.ReturnType, voidType))
             {
                 INamedTypeSymbol cancellationToken = context.Compilation.GetTypeByMetadataName(_cancellationTokenType);
-                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
 
-                if (cancellationTokenParameter == null)
+                MethodDeclarationSyntax methodDeclarationSyntax = invocationExpressionSyntax
+                    .SyntaxTree
+                    ?.GetRoot()
+                    ?.FindToken(invocationExpressionSyntax.SpanStart)
+                    .Parent
+                    ?.AncestorsAndSelf()
+                    ?.OfType<MethodDeclarationSyntax>()
+                    ?.FirstOrDefault();
+
+                if (methodDeclarationSyntax == null)
                 {
-                    ReportDiagnosticResult(context, methodSymbol);
+                    return;
+                }
+
+                if (!(context.SemanticModel.GetDeclaredSymbol(methodDeclarationSyntax) is IMethodSymbol currentMethodSymbol))
+                {
+                    return;
+                }
+
+                IParameterSymbol currentMethodCancellationToken = currentMethodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
+                IParameterSymbol cancellationTokenParameter = methodSymbol.Parameters.FirstOrDefault(d => d.Type == cancellationToken);
+                if (cancellationTokenParameter == null && currentMethodCancellationToken != null)
+                {
+                    ReportDiagnosticResult(context, invocationExpressionSyntax);
                 }
             }
         }

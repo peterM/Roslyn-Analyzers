@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: MissingCancellationTokenParameter_Task_Declaration_Rule.cs 
+// File: MissingCancellationTokenParameter_Task_Invocation_Rule.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -29,32 +29,32 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal sealed class MissingCancellationTokenParameter_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
+    internal sealed class MissingCancellationTokenParameter_Task_Invocation_Rule : AbstractDiagnosticRuleDescriptor
     {
         protected override string InternalDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Design;
 
-        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Declaration_Rule_Title), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Title => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Invocation_Rule_Title), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Declaration_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString MessageFormat => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Invocation_Rule_MessageFormat), Resources.ResourceManager, typeof(Resources));
 
-        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Declaration_Rule_Description), Resources.ResourceManager, typeof(Resources));
+        protected override LocalizableString Description => new LocalizableResourceString(nameof(Resources.MissingCancellationTokenParameter_Task_Invocation_Rule_Description), Resources.ResourceManager, typeof(Resources));
 
         protected override DiagnosticSeverity Severity => DiagnosticSeverity.Info;
 
-        static MissingCancellationTokenParameter_Task_Declaration_Rule()
+        static MissingCancellationTokenParameter_Task_Invocation_Rule()
         {
-            MissingCancellationTokenParameter_Task_Declaration_Rule descriptot = new MissingCancellationTokenParameter_Task_Declaration_Rule();
+            MissingCancellationTokenParameter_Task_Invocation_Rule descriptot = new MissingCancellationTokenParameter_Task_Invocation_Rule();
             Rule = AbstractDiagnosticRuleDescriptor.Create(descriptot);
         }
 
-        private MissingCancellationTokenParameter_Task_Declaration_Rule()
+        private MissingCancellationTokenParameter_Task_Invocation_Rule()
         {
         }
 
         internal static DiagnosticDescriptor Rule { get; }
 
-        internal static string DiagnosticId => "AADE002";
+        internal static string DiagnosticId => "AADE004";
     }
 }
