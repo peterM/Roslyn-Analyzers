@@ -30,6 +30,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Common;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
 {
@@ -60,11 +61,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
                 return result;
             }
 
-            SyntaxReference syntaxReference = methodSymbol
-                .DeclaringSyntaxReferences
-                .FirstOrDefault();
-
-            if (syntaxReference == null)
+            if (!methodSymbol.IsDeclareInMetadata())
             {
                 return result;
             }

@@ -64,6 +64,7 @@
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\AddMissingCancellationTokenParameter_Invocation_CodeFixProvider.cs" Link="CodeFixes\Specific\AddMissingCancellationTokenParameter_Invocation_CodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\RenameCancellationTokenParameterCodeFixProvider.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" Link="CodeFixes\Specific\ReorderCancellationTokenParameterCodeFixProvider.cs" />
+    <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Common\SymbolExtensions.cs" Link="Common\SymbolExtensions.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Resources.Designer.cs" Link="Resources.Designer.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\AbstractDiagnosticRuleDescriptor.cs" Link="Rules\AbstractDiagnosticRuleDescriptor.cs" />
     <Compile Include="..\MalikP.Analyzers.AsyncMethodAnalyzer16\Rules\Design\CancellationTokenParameterReusePossibility_Task_Invocation_Rule.cs" Link="Rules\Design\CancellationTokenParameterReusePossibility_Task_Invocation_Rule.cs" />
@@ -100,6 +101,7 @@
     <Folder Include="Analyzers\Specific\Naming\" />
     <Folder Include="Analyzers\Specific\Design\" />
     <Folder Include="CodeFixes\Specific\" />
+    <Folder Include="Common\" />
     <Folder Include="Rules\Design\" />
     <Folder Include="Rules\Naming\" />
   </ItemGroup>

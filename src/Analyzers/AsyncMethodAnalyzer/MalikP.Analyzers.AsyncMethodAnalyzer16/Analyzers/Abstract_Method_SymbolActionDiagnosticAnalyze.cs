@@ -26,6 +26,7 @@
 // SOFTWARE.
 
 using System.Linq;
+using MalikP.Analyzers.AsyncMethodAnalyzer.Common;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 
@@ -55,11 +56,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
                 return result;
             }
 
-            SyntaxReference syntaxReference = methodSymbol
-               .DeclaringSyntaxReferences
-               .FirstOrDefault();
-
-            if (syntaxReference == null)
+            if (!methodSymbol.IsDeclareInMetadata())
             {
                 return result;
             }
