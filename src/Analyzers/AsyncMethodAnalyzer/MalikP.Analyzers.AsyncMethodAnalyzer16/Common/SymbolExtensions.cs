@@ -6,7 +6,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Common
     {
         public static bool IsDeclareInMetadata(this ISymbol symbol)
         {
-            return !(symbol is null) && symbol.DeclaringSyntaxReferences.IsDefaultOrEmpty && !symbol.IsImplicitlyDeclared;
+            return !(symbol is null) && !symbol.DeclaringSyntaxReferences.IsDefaultOrEmpty && !symbol.IsImplicitlyDeclared;
         }
     }
 }
