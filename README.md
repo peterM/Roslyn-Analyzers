@@ -4,6 +4,7 @@
 <br />
 
 [![Build status](https://dev.azure.com/MalikP/roslyn-analyzers/_apis/build/status/roslyn-analyzers)](https://dev.azure.com/MalikP/roslyn-analyzers/_build/latest?definitionId=2)
+[![Board Status](https://dev.azure.com/MalikP/c252d34b-4c08-4a56-a4cb-b7d5eca92f91/c04b9d86-f4f1-4fe2-93cf-121854d15d74/_apis/work/boardbadge/54372833-3ad5-4744-b912-1d645d39b630)](https://dev.azure.com/MalikP/c252d34b-4c08-4a56-a4cb-b7d5eca92f91/_boards/board/t/c04b9d86-f4f1-4fe2-93cf-121854d15d74/Microsoft.RequirementCategory)
 
 
 ### Diagnostic analyzers and code fix providers
@@ -81,7 +82,6 @@ public Task MyMethod()
 }
 ```
 
-<br/>
 <br/>
 
 #### TO DO
