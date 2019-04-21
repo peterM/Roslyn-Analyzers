@@ -38,7 +38,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
         {
         }
 
-        protected abstract string InternalDiagnosticId { get; }
+        protected abstract string publicDiagnosticId { get; }
 
         protected abstract string Category { get; }
 
@@ -54,7 +54,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules
             where T : AbstractDiagnosticRuleDescriptor
         {
             return new DiagnosticDescriptor(
-            diagnosticRuleDescriptor.InternalDiagnosticId,
+            diagnosticRuleDescriptor.publicDiagnosticId,
             diagnosticRuleDescriptor.Title,
             diagnosticRuleDescriptor.MessageFormat,
             diagnosticRuleDescriptor.Category,

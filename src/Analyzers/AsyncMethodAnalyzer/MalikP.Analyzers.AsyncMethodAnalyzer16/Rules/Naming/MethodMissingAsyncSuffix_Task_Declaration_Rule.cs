@@ -29,9 +29,9 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
-    internal sealed class MethodMissingAsyncSuffix_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
+    public sealed class MethodMissingAsyncSuffix_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
-        protected override string InternalDiagnosticId => DiagnosticId;
+        protected override string publicDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 
@@ -53,8 +53,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
         {
         }
 
-        internal static DiagnosticDescriptor Rule { get; }
+        public static DiagnosticDescriptor Rule { get; }
 
-        internal static string DiagnosticId => "AANA001";
+        public static string DiagnosticId => "AANA001";
     }
 }

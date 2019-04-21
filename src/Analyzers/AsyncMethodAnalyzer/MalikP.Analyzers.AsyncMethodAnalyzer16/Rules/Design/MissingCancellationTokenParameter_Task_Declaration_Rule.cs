@@ -29,9 +29,9 @@ using Microsoft.CodeAnalysis;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
 {
-    internal sealed class MissingCancellationTokenParameter_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
+    public sealed class MissingCancellationTokenParameter_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
-        protected override string InternalDiagnosticId => DiagnosticId;
+        protected override string publicDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Design;
 
@@ -53,8 +53,8 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design
         {
         }
 
-        internal static DiagnosticDescriptor Rule { get; }
+        public static DiagnosticDescriptor Rule { get; }
 
-        internal static string DiagnosticId => "AADE002";
+        public static string DiagnosticId => "AADE002";
     }
 }

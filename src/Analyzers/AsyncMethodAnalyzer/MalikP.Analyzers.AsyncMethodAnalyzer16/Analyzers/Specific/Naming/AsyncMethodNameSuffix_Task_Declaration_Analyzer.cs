@@ -25,7 +25,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
@@ -35,7 +34,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_Task_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
+    public sealed class AsyncMethodNameSuffix_Task_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 
