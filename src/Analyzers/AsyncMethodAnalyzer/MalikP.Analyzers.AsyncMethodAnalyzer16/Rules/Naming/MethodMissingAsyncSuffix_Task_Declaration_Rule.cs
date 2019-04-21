@@ -31,7 +31,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming
 {
     public sealed class MethodMissingAsyncSuffix_Task_Declaration_Rule : AbstractDiagnosticRuleDescriptor
     {
-        protected override string InternalDiagnosticId => DiagnosticId;
+        protected override string publicDiagnosticId => DiagnosticId;
 
         protected override string Category => AbstractDiagnosticRuleDescriptor.Naming;
 

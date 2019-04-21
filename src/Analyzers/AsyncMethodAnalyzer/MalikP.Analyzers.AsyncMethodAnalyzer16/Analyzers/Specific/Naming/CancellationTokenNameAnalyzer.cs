@@ -25,8 +25,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
@@ -35,7 +33,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenNameAnalyzer : AbstractSymbolActionDiagnosticAnalyzer
+    public sealed class CancellationTokenNameAnalyzer : AbstractSymbolActionDiagnosticAnalyzer
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => WrongCancellationTokenMethodParameterName_Declaration_Rule.Rule;
 

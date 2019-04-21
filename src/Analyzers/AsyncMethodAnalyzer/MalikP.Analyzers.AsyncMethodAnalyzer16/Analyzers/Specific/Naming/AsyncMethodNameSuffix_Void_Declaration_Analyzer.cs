@@ -25,8 +25,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
@@ -35,7 +33,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Naming
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsyncMethodNameSuffix_Void_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
+    public sealed class AsyncMethodNameSuffix_Void_Declaration_Analyzer : Abstract_Method_SymbolActionDiagnosticAnalyze
     {
         protected override DiagnosticDescriptor DiagnosticDescriptor => MethodMissingAsyncSuffix_Void_Declaration_Rule.Rule;
 

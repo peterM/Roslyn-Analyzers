@@ -25,7 +25,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 using System.Linq;
 
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
@@ -36,7 +35,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers.Specific.Design
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class CancellationTokenParameterExistence_Task_Invocation_Analyzer : Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer
+    public sealed class CancellationTokenParameterExistence_Task_Invocation_Analyzer : Abstract_InvocationExpressionSyntax_SyntaxNodeActionDiagnosticAnalyzer
     {
         private const string _genericTaskType = "System.Threading.Tasks.Task<TResult>";
 

@@ -28,6 +28,7 @@
 using System.Composition;
 using System.Threading;
 using System.Threading.Tasks;
+
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Naming;
 
 using Microsoft.CodeAnalysis;
