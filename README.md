@@ -1,9 +1,9 @@
 ![](res/roslyn.png)
 
 
-
 <br />
 
+[![Build status](https://dev.azure.com/MalikP/roslyn-analyzers/_apis/build/status/roslyn-analyzers)](https://dev.azure.com/MalikP/roslyn-analyzers/_build/latest?definitionId=2)
 
 
 ### Diagnostic analyzers and code fix providers
