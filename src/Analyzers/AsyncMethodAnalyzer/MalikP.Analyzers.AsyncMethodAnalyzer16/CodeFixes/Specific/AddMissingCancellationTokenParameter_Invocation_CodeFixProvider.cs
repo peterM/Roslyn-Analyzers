@@ -72,21 +72,6 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
             return await AddCancellationTokenToDeclaringMethod(solution, document, syntaxDeclaration, cancellationToken).ConfigureAwait(false);
         }
 
-        private static ArgumentSyntax CreateArgument()
-        {
-            return SyntaxFactory.Argument(
-                    SyntaxFactory.MemberAccessExpression(
-                        SyntaxKind.SimpleMemberAccessExpression,
-                        SyntaxFactory.MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression,
-                            SyntaxFactory.MemberAccessExpression(
-                                SyntaxKind.SimpleMemberAccessExpression,
-                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("System")),
-                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("Threading"))),
-                            SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("CancellationToken"))),
-                        SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("None"))));
-        }
-
         private async Task<Solution> AddCancellationTokenToDeclaringMethod(Solution solution, Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
@@ -120,6 +105,21 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
             updatedSyntaxTree = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
 
             return solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
+        }
+
+        private ArgumentSyntax CreateArgument()
+        {
+            return SyntaxFactory.Argument(
+                    SyntaxFactory.MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        SyntaxFactory.MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("System")),
+                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("Threading"))),
+                            SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("CancellationToken"))),
+                        SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("None"))));
         }
     }
 }
