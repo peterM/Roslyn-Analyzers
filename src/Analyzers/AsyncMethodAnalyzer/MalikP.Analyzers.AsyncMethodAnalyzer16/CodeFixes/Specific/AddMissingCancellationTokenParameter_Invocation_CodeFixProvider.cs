@@ -57,17 +57,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
-            ArgumentSyntax newArgument = SyntaxFactory.Argument(
-                    SyntaxFactory.MemberAccessExpression(
-                        SyntaxKind.SimpleMemberAccessExpression,
-                        SyntaxFactory.MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression,
-                            SyntaxFactory.MemberAccessExpression(
-                                SyntaxKind.SimpleMemberAccessExpression,
-                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("System")),
-                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("Threading"))),
-                            SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("CancellationToken"))),
-                        SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("None"))));
+            ArgumentSyntax newArgument = CreateArgument();
 
             InvocationExpressionSyntax updatedMethodInvocation = syntaxDeclaration.AddArgumentListArguments(newArgument);
 
@@ -80,6 +70,21 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
             Solution solution = document.Project.Solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
 
             return await AddCancellationTokenToDeclaringMethod(solution, document, syntaxDeclaration, cancellationToken).ConfigureAwait(false);
+        }
+
+        private static ArgumentSyntax CreateArgument()
+        {
+            return SyntaxFactory.Argument(
+                    SyntaxFactory.MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        SyntaxFactory.MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            SyntaxFactory.MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("System")),
+                                SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("Threading"))),
+                            SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("CancellationToken"))),
+                        SyntaxFactory.IdentifierName(SyntaxFactory.Identifier("None"))));
         }
 
         private async Task<Solution> AddCancellationTokenToDeclaringMethod(Solution solution, Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
