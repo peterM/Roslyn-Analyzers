@@ -2,7 +2,7 @@
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.Models
 {
-    internal class SyntaxNodeReplacementPair
+    public class SyntaxNodeReplacementPair
     {
         public SyntaxNodeReplacementPair(Document document, SyntaxNode root, SyntaxNode originalNode, SyntaxNode replacementNode)
         {
