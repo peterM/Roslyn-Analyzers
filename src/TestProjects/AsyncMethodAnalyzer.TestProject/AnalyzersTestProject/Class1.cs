@@ -47,5 +47,15 @@ namespace AnalyzersTestProject
         {
             MXXddd(CancellationToken.None, 1);
         }
+
+        public Task CallDelay()
+        {
+            return Task.Delay(1);
+        }
+
+        public Task CallAsyncMethod(CancellationToken cancellationToken)
+        {
+            return CallDelay();
+        }
     }
 }
