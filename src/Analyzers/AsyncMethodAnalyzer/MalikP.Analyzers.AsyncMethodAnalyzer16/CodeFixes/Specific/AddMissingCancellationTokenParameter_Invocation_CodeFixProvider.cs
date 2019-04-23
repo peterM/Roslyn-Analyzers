@@ -26,23 +26,21 @@
 // SOFTWARE.
 
 using System.Composition;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using MalikP.Analyzers.AsyncMethodAnalyzer.Models;
 using MalikP.Analyzers.AsyncMethodAnalyzer.Rules.Design;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Options;
-using Microsoft.CodeAnalysis.Simplification;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AddMissingCancellationTokenParameter_Invocation_CodeFixProvider)), Shared]
-    public sealed class AddMissingCancellationTokenParameter_Invocation_CodeFixProvider : AbstractSolutionCodefixProvider<InvocationExpressionSyntax>
+    public sealed class AddMissingCancellationTokenParameter_Invocation_CodeFixProvider : AbstractAddMissingCancellationTokenParameter_Invocation_CodeFixProvider
     {
         private const string _identifierName = "cancellationToken";
 
@@ -55,56 +53,13 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
                 MissingCancellationTokenParameter_Void_Invocation_Rule.DiagnosticId
             };
 
-        protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
+        protected override async Task<SyntaxNodeReplacementPair> ConstructInvocationPairAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
             ArgumentSyntax newArgument = CreateArgument();
-
             InvocationExpressionSyntax updatedMethodInvocation = syntaxDeclaration.AddArgumentListArguments(newArgument);
 
-            SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken).ConfigureAwait(false);
-
-            SyntaxNode updatedSyntaxTree = syntaxTree
-                .GetRoot()
-                .ReplaceNode(syntaxDeclaration, updatedMethodInvocation);
-
-            Solution solution = document.Project.Solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
-
-            return await AddCancellationTokenToDeclaringMethod(solution, document, syntaxDeclaration, cancellationToken).ConfigureAwait(false);
-        }
-
-        private async Task<Solution> AddCancellationTokenToDeclaringMethod(Solution solution, Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
-        {
-            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
-            ISymbol symbol = semanticModel.GetSymbolInfo(syntaxDeclaration).Symbol;
-
-            SyntaxReference declaringSyntax = symbol.DeclaringSyntaxReferences.FirstOrDefault();
-
-            MethodDeclarationSyntax methodSyntax = declaringSyntax?.GetSyntax(cancellationToken) as MethodDeclarationSyntax;
-
-            SyntaxToken identifier = SyntaxFactory.Identifier(_identifierName);
-            TypeSyntax typeName = SyntaxFactory.ParseTypeName(typeof(CancellationToken).FullName);
-
-            ParameterSyntax parameter = SyntaxFactory
-                .Parameter(identifier)
-                .WithType(typeName)
-                .WithAdditionalAnnotations(Simplifier.Annotation);
-
-            MethodDeclarationSyntax updatedMethod = methodSyntax.AddParameterListParameters(parameter);
-
-            SyntaxNode updatedSyntaxTree = declaringSyntax.SyntaxTree
-                .GetRoot()
-                .ReplaceNode(methodSyntax, updatedMethod);
-
-            document = document.Project.Solution.GetDocument(declaringSyntax.SyntaxTree);
-            document = document.WithSyntaxRoot(updatedSyntaxTree);
-
-            DocumentOptionSet options = await document.GetOptionsAsync(cancellationToken).ConfigureAwait(false);
-
-            document = await Simplifier.ReduceAsync(document, options, cancellationToken).ConfigureAwait(false);
-
-            updatedSyntaxTree = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-
-            return solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
+            SyntaxNode root = await GetRootAsync(document, cancellationToken).ConfigureAwait(false);
+            return new SyntaxNodeReplacementPair(document, root, syntaxDeclaration, updatedMethodInvocation);
         }
 
         private ArgumentSyntax CreateArgument()
