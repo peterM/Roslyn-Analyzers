@@ -57,5 +57,15 @@ namespace AnalyzersTestProject
         {
             return CallDelay();
         }
+
+        public async void MyVoidMethod()
+        {
+            await Task.Delay(1);
+        }
+
+        public void CallVoid(CancellationToken ca)
+        {
+            MyVoidMethod();
+        }
     }
 }
