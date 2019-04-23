@@ -25,6 +25,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.Linq;
@@ -38,6 +39,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Simplification;
 
 namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
@@ -59,16 +61,25 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
         protected override async Task<Solution> ChangedSolutionHandlerAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
+            SyntaxNodeReplacementPair invocation = await ConstructInvocationPairAsync(document, syntaxDeclaration, cancellationToken)
+                .ConfigureAwait(false);
+
+            SyntaxNodeReplacementPair declaration = await ConstructDeclarationPairAsync(document, syntaxDeclaration, cancellationToken)
+                .ConfigureAwait(false);
+
             Solution solution = document.Project.Solution;
+            return await UpdateDocumentsAsync(solution, invocation, declaration, cancellationToken).ConfigureAwait(false);
+        }
 
+        private async Task<SyntaxNodeReplacementPair> ConstructInvocationPairAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
+        {
             SyntaxNode root = await GetRootAsync(document, cancellationToken).ConfigureAwait(false);
-
             BaseMethodDeclarationSyntax parentMethodSyntax = GetSyntaxes<BaseMethodDeclarationSyntax>(root, syntaxDeclaration.Span)
                 .FirstOrDefault();
 
             if (parentMethodSyntax == null)
             {
-                return document.Project.Solution;
+                return null;
             }
 
             List<ParameterSyntax> parameters = parentMethodSyntax.ParameterList.Parameters.ToList();
@@ -77,56 +88,67 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
             ArgumentSyntax newArgument = SyntaxFactory.Argument(SyntaxFactory.ParseExpression(cancellationTokenParameter.Identifier.Text));
             InvocationExpressionSyntax updatedMethodInvocation = syntaxDeclaration.AddArgumentListArguments(newArgument);
 
-            SyntaxTree syntaxTree = await document.GetSyntaxTreeAsync(cancellationToken).ConfigureAwait(false);
-
-            //SyntaxNode updatedSyntaxTree = syntaxTree
-            //    .GetRoot()
-            //    .ReplaceNode(syntaxDeclaration, updatedMethodInvocation);
-
-            var invocationPair = new SyntaxNodeReplacementPair(document, syntaxTree.GetRoot(), syntaxDeclaration, updatedMethodInvocation);
-            var methodDeclarationPair = await AddCancellationTokenToDeclaringMethod(solution, document, syntaxDeclaration, cancellationToken).ConfigureAwait(false);
-
-            //solution = UpdateDocuments(solution, invocationPair, methodDeclarationPair);
-
-            //solution = document.Project.Solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
-
-            solution = UpdateDocuments(solution, new[] { invocationPair, methodDeclarationPair });
-
-            return solution;
+            return new SyntaxNodeReplacementPair(document, root, syntaxDeclaration, updatedMethodInvocation);
         }
 
-        private Solution UpdateDocuments(Solution solution, IEnumerable<SyntaxNodeReplacementPair> pairs)
+        private async Task<Solution> UpdateDocumentsAsync(Solution solution, SyntaxNodeReplacementPair invocation, SyntaxNodeReplacementPair declaration, CancellationToken cancellationToken)
         {
-            var first = pairs.First();
-
-            var last = pairs.Last();
-
-            if (first == last)
+            if (AreTheSameDocuments(invocation.Document, declaration.Document))
             {
-                return solution;
-            }
+                try
+                {
+                    SyntaxNode root = invocation.Root.ReplaceNode(invocation.OriginalNode, invocation.ReplacementNode);
 
-            if (first.Document.Id == last.Document.Id)
-            {
-                //var newRoot = first.Root.ReplaceNodes(pairs.Select(d => d.OriginalNode), (original, replacement) =>
-                //  {
-                //      replacement = pairs.First(x => x.OriginalNode == original).ReplacementNode;
-                //                       });
+                    SyntaxNode found = root.FindNode(declaration.OriginalNode.Span);
+                    root = root.ReplaceNode(found, declaration.ReplacementNode);
 
-                var newRoot = first.Root.ReplaceNode(first.OriginalNode, first.ReplacementNode);
-
-                var found = newRoot.FindNode(last.OriginalNode.Span);
-                newRoot = newRoot.ReplaceNode(found, last.ReplacementNode);
-                solution = solution.WithDocumentSyntaxRoot(first.Document.Id, newRoot);
+                    solution = solution.WithDocumentSyntaxRoot(declaration.Document.Id, root);
+                }
+                catch
+                {
+                    // TODO: add loging or improve logic to be sure that exception never occure
+                }
             }
             else
             {
+                solution = await ReplaceAndSimplifyNodeAsync(solution, invocation, cancellationToken)
+                    .ConfigureAwait(false);
+
+                solution = await ReplaceAndSimplifyNodeAsync(solution, declaration, cancellationToken)
+                    .ConfigureAwait(false);
             }
 
             return solution;
         }
 
-        private async Task<SyntaxNodeReplacementPair> AddCancellationTokenToDeclaringMethod(Solution solution, Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
+        private bool AreTheSameDocuments(Document invocationDocument, Document declarationDocument)
+        {
+            return invocationDocument.Id == declarationDocument.Id;
+        }
+
+        private async Task<Solution> ReplaceAndSimplifyNodeAsync(Solution solution, SyntaxNodeReplacementPair pair, CancellationToken cancellationToken)
+        {
+            SyntaxNode node = pair.Root.ReplaceNode(pair.OriginalNode, pair.ReplacementNode.WithAdditionalAnnotations(Simplifier.Annotation));
+
+            node = await SimplifyAsync(solution, pair.Document.Id, node, cancellationToken).ConfigureAwait(false);
+
+            return solution.WithDocumentSyntaxRoot(pair.Document.Id, node);
+        }
+
+        private async Task<SyntaxNode> SimplifyAsync(Solution solution, DocumentId documentId, SyntaxNode root, CancellationToken cancellationToken)
+        {
+            Document document = solution.GetDocument(documentId);
+
+            document = document.WithSyntaxRoot(root);
+
+            DocumentOptionSet options = await document.GetOptionsAsync(cancellationToken).ConfigureAwait(false);
+
+            document = await Simplifier.ReduceAsync(document, options, cancellationToken).ConfigureAwait(false);
+
+            return await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        private async Task<SyntaxNodeReplacementPair> ConstructDeclarationPairAsync(Document document, InvocationExpressionSyntax syntaxDeclaration, CancellationToken cancellationToken)
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
             ISymbol symbol = semanticModel.GetSymbolInfo(syntaxDeclaration).Symbol;
@@ -145,25 +167,12 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.CodeFixes.Specific
 
             MethodDeclarationSyntax updatedMethod = methodSyntax.AddParameterListParameters(parameter);
 
-            //SyntaxNode updatedSyntaxTree = declaringSyntax.SyntaxTree
-            //    .GetRoot()
-            //    .ReplaceNode(methodSyntax, updatedMethod);
+            document = document.Project.Solution.GetDocument(declaringSyntax.SyntaxTree);
 
             return new SyntaxNodeReplacementPair(document, declaringSyntax.SyntaxTree.GetRoot(), methodSyntax, updatedMethod);
-
-            //document = document.Project.Solution.GetDocument(declaringSyntax.SyntaxTree);
-            //document = document.WithSyntaxRoot(updatedSyntaxTree);
-
-            //DocumentOptionSet options = await document.GetOptionsAsync(cancellationToken).ConfigureAwait(false);
-
-            //document = await Simplifier.ReduceAsync(document, options, cancellationToken).ConfigureAwait(false);
-
-            //updatedSyntaxTree = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-
-            //return solution.WithDocumentSyntaxRoot(document.Id, updatedSyntaxTree);
         }
 
-        private static bool CompareParameter(ParameterSyntax parameterSyntax)
+        private bool CompareParameter(ParameterSyntax parameterSyntax)
         {
             return parameterSyntax.Type.ToString().Contains(_identifierType);
         }
