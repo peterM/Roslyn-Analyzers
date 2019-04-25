@@ -60,7 +60,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
                 return result;
             }
 
-            if (CheckMethodKind(methodSymbol.MethodKind))
+            if (IsMethodKindValid(methodSymbol.MethodKind))
             {
                 return result;
             }
@@ -73,7 +73,7 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
             return new AnalyzerCanContinueMethodResult(methodSymbol, returnTypeSymbol, true);
         }
 
-        protected virtual bool CheckMethodKind(MethodKind methodKind)
+        protected virtual bool IsMethodKindValid(MethodKind methodKind)
         {
             return methodKind != MethodKind.PropertyGet
                  && methodKind != MethodKind.PropertySet;
