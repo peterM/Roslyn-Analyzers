@@ -60,12 +60,23 @@ namespace MalikP.Analyzers.AsyncMethodAnalyzer.Analyzers
                 return result;
             }
 
+            if (IsMethodKindValid(methodSymbol.MethodKind))
+            {
+                return result;
+            }
+
             if (!(methodSymbol?.ReturnType is INamedTypeSymbol returnTypeSymbol))
             {
                 return result;
             }
 
             return new AnalyzerCanContinueMethodResult(methodSymbol, returnTypeSymbol, true);
+        }
+
+        protected virtual bool IsMethodKindValid(MethodKind methodKind)
+        {
+            return methodKind != MethodKind.PropertyGet
+                 && methodKind != MethodKind.PropertySet;
         }
     }
 }
