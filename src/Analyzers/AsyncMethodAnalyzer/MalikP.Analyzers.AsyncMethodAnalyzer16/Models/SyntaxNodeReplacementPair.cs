@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2019 Peter Malik.
 // 
-// File: SymbolExtensions.cs 
+// File: SyntaxNodeReplacementPair.cs 
 // Company: MalikP.
 //
 // Repository: https://github.com/peterM/Roslyn-Analyzers
@@ -27,13 +27,21 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace MalikP.Analyzers.AsyncMethodAnalyzer.Common
+namespace MalikP.Analyzers.AsyncMethodAnalyzer.Models
 {
-    public static class SymbolExtensions
+    public class SyntaxNodeReplacementPair
     {
-        public static bool IsDeclareInMetadata(this ISymbol symbol)
+        public SyntaxNodeReplacementPair(Document document, SyntaxNode root, SyntaxNode originalNode, SyntaxNode replacementNode)
         {
-            return !(symbol is null) && !symbol.DeclaringSyntaxReferences.IsDefaultOrEmpty && !symbol.IsImplicitlyDeclared;
+            Document = document;
+            OriginalNode = originalNode;
+            ReplacementNode = replacementNode;
+            Root = root;
         }
+
+        public Document Document { get; }
+        public SyntaxNode OriginalNode { get; }
+        public SyntaxNode ReplacementNode { get; }
+        public SyntaxNode Root { get; }
     }
 }
